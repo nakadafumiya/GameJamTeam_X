@@ -25,7 +25,7 @@ void Player::Initialize()
 	angle = 0.0f;
 	speed = 3.0f;
 	hp = 1000;
-	fuel = 20000;
+	/*fuel = 20000;*/
 	barrier_count = 3;
 
 	//‰æ‘œ‚Ì“Ç‚İ‚İ
@@ -54,7 +54,7 @@ void Player::Update()
 	}
 
 	//”R—¿‚ÌÁ”ï
-	fuel -= speed;
+	/*fuel -= speed;*/
 
 	//ˆÚ“®ˆ—
 	Movement();
@@ -146,10 +146,10 @@ float Player::GetSpeed() const
 }
 
 //”R—¿æ“¾ˆ—
-float Player::GetFuel() const
-{
-	return this->fuel;
-}
+//float Player::GetFuel() const
+//{
+//	return this->fuel;
+//}
 
 //‘Ì—Íæ“¾ˆ—
 float Player::GetHp() const
