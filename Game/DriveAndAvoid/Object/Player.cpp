@@ -142,6 +142,8 @@ void Player::Draw()
 	{
 
 		DrawRotaGraph(location.x, location.y, 1.0, angle, image_cat_hand, TRUE);
+
+		hand_image = false;
 	}
 }
 
@@ -259,7 +261,7 @@ void Player::DrawHand()
 
 void Player::AttackEnd()
 {
-	hand_image = false;
+//	hand_image = false;
 }
 
 ////â¡å∏ë¨èàóù
