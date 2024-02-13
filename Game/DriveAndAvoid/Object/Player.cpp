@@ -215,22 +215,22 @@ void Player::Movement()
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_LEFT))
 	{
 		player_direction = 0;
-		move += Vector2D(-1.0f, 0.0f);
+		move += Vector2D(-2.0f, 0.0f);
 		angle = -DX_PI_F / 18;
 	}
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_RIGHT))
 	{
 		player_direction = 1;
-		move += Vector2D(1.0f, 0.0f);
+		move += Vector2D(2.0f, 0.0f);
 		angle = DX_PI_F / 18;
 	}
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_UP))
 	{
-		move += Vector2D(0.0f, -1.0f);
+		move += Vector2D(0.0f, -2.0f);
 	}
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_DOWN))
 	{
-		move += Vector2D(0.0f, 1.0f);
+		move += Vector2D(0.0f, 2.0f);
 	}
 
 	location += move;
