@@ -20,6 +20,7 @@ private:
 	float hp;				//体力
 	float player_imagecount;//フレームごとにプレイヤー画像を変更する
 	bool player_direction;  //プレイヤーの向き　0:左 1:右
+	bool player_stun;       // プレイヤーがスタンしているかどうか
 	//float fuel;					//燃料
 	int barrier_count;		//バリアの枚数
 	Barrier* barrier;		//バリア
