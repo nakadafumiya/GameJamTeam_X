@@ -10,6 +10,7 @@ private:
 	int image_left2;
 	int image_right1;
 	int image_right2;
+	int image_stun;
 	bool is_active;			//有効状態か？
 	int image;				//画像データ
 	Vector2D location;		//位置座標

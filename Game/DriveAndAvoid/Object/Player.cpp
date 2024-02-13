@@ -4,10 +4,14 @@
 
 Player::Player() : is_active(false), image(NULL), location(0.0f), box_size(0.0f),
 angle(0.0f),
-speed(0.0f), hp(0.0f),  barrier_count(0),
+speed(0.0f), hp(0.0f),  barrier_count(0),player_direction(0),player_imagecount(0),
 barrier(nullptr)
 {
-
+	image_left1 = LoadGraph("Resource/images/catleft_1.png");
+	image_left2 = LoadGraph("Resource/images/catleft_2.png");
+	image_right1 = LoadGraph("Resource/images/catright_1.png");
+	image_right2 = LoadGraph("Resource/images/catright_2.png");
+	image_stun = LoadGraph("Resource/images/catstun.png");
 }
 
 Player::~Player()
@@ -29,12 +33,12 @@ void Player::Initialize()
 	barrier_count = 3;
 
 	//画像の読み込み
-	image = LoadGraph("Resource/images/car1pol.bmp");
+	image = LoadGraph("Resource/images/catleft_1.png");
 
 	//エラーチェック
 	if (image == -1)
 	{
-		throw("Resource/images/car1pol.bmpがありません\n");
+		throw("Resource/images/catleft_1.pngがありません\n");
 	}
 }
 
@@ -59,8 +63,8 @@ void Player::Update()
 	//移動処理
 	Movement();
 
-	//加減速処理
-	Acceleration();
+	////加減速処理
+	//Acceleration();
 	
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_START))
 	{
@@ -99,6 +103,29 @@ void Player::Draw()
 	if (barrier != nullptr)
 	{
 		barrier->Draw(this->location);
+	}
+
+	if (!is_active)
+	{
+		image = image_stun;
+	}
+
+	if (player_imagecount < 30 && player_direction == 0)
+	{
+		image = image_left1;
+	}
+	else if (player_imagecount > 29 && player_direction == 0)
+	{
+		image = image_left2;
+	}
+
+	if (player_imagecount < 30 && player_direction == 1)
+	{
+		image = image_right1;
+	}
+	else if (player_imagecount > 29 && player_direction == 1)
+	{
+		image = image_right2;
 	}
 }
 
@@ -178,11 +205,13 @@ void Player::Movement()
 	//十字移動処理
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_LEFT))
 	{
+		player_direction = 0;
 		move += Vector2D(-1.0f, 0.0f);
 		angle = -DX_PI_F / 18;
 	}
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_RIGHT))
 	{
+		player_direction = 1;
 		move += Vector2D(1.0f, 0.0f);
 		angle = DX_PI_F / 18;
 	}
@@ -205,18 +234,18 @@ void Player::Movement()
 	}
 }
 
-//加減速処理
-void Player::Acceleration()
-{
-	//LBボタンが押されたら、減速する
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER) && speed > 1.0f)
-	{
-		speed -= 1.0f;
-	}
-
-	//RBボタンが押されたら、加速する
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_RIGHT_SHOULDER) && speed < 10.0f)
-	{
-		speed += 1.0f;
-	}
-}
+////加減速処理
+//void Player::Acceleration()
+//{
+//	//LBボタンが押されたら、減速する
+//	if (InputControl::GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER) && speed > 1.0f)
+//	{
+//		speed -= 1.0f;
+//	}
+//
+//	//RBボタンが押されたら、加速する
+//	if (InputControl::GetButtonDown(XINPUT_BUTTON_RIGHT_SHOULDER) && speed < 10.0f)
+//	{
+//		speed += 1.0f;
+//	}
+//}
