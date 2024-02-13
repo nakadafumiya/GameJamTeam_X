@@ -115,7 +115,7 @@ eSceneType GameMainScene::Update()
 			if (IsHitCheck(player, enemy[i]))
 			{
 				player->SetActive(false);
-				player->DecreaseHp(-50.0f);
+				player->DecreaseHp(-334.0f);
 				enemy[i]->Finalize();
 				delete enemy[i];
 				enemy[i] = nullptr;
@@ -124,11 +124,11 @@ eSceneType GameMainScene::Update()
 
 	}
 
-	//プレイヤーの燃料化体力が0未満なら、リザルトに遷移する
-	if (player->GetFuel() < 0.0f || player->GetHp() < 0.0f)
-	{
-		return eSceneType::E_RESULT;
-	}
+	////プレイヤーの燃料化体力が0未満なら、リザルトに遷移する
+	//if (player->GetFuel() < 0.0f || player->GetHp() < 0.0f)
+	//{
+	//	return eSceneType::E_RESULT;
+	//}
 
 	return GetNowScene();
 }
@@ -179,14 +179,14 @@ void GameMainScene::Draw() const
 			TRUE, FALSE);
 	}
 
-	//燃料ゲージの描画
+	////燃料ゲージの描画
 	float fx = 510.0f;
 	float fy = 390.0f;
-	DrawFormatStringF(fx, fy, GetColor(0, 0, 0), "FUEL METER");
-	DrawBoxAA(fx, fy + 20.0f, fx + (player->GetFuel() * 100 / 20000), fy +
-		40.0f, GetColor(0, 102, 204), TRUE);
-	DrawBoxAA(fx, fy + 20.0f, fx + 100.0f, fy + 40.0f, GetColor(0, 0, 0),
-		FALSE);
+	//DrawFormatStringF(fx, fy, GetColor(0, 0, 0), "FUEL METER");
+	//DrawBoxAA(fx, fy + 20.0f, fx + (player->GetFuel() * 100 / 20000), fy +
+	//	40.0f, GetColor(0, 102, 204), TRUE);
+	//DrawBoxAA(fx, fy + 20.0f, fx + 100.0f, fy + 40.0f, GetColor(0, 0, 0),
+	//	FALSE);
 	
 	//体力ゲージの描画
 	fx = 510.0f;
