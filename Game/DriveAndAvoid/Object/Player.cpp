@@ -12,6 +12,7 @@ barrier(nullptr)
 	image_right1 = LoadGraph("Resource/images/catrun_right1.png");
 	image_right2 = LoadGraph("Resource/images/catrun_right2.png");
 	image_stun = LoadGraph("Resource/images/catstun.png");
+	image_cat_hand = LoadGraph("Resource/images/cat_hand.png");
 }
 
 Player::~Player()
@@ -27,7 +28,7 @@ void Player::Initialize()
 	location = Vector2D(320.0f, 380.0f);
 	box_size = Vector2D(31.0f, 60.0f);
 	angle = 0.0f;
-	speed = 3.0f;
+	speed = 6.0f;
 	hp = 1000;
 	/*fuel = 20000;*/
 	barrier_count = 3;
@@ -136,6 +137,12 @@ void Player::Draw()
 	{
 		image = image_right2;
 	}
+
+	if(hand_image == true)
+	{
+
+		DrawRotaGraph(location.x, location.y, 1.0, angle, image_cat_hand, TRUE);
+	}
 }
 
 //èIóπéûèàóù
@@ -215,13 +222,13 @@ void Player::Movement()
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_LEFT))
 	{
 		player_direction = 0;
-		move += Vector2D(-1.0f, 0.0f);
+		move += Vector2D(-2.5f, 0.0f);
 		angle = -DX_PI_F / 18;
 	}
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_RIGHT))
 	{
 		player_direction = 1;
-		move += Vector2D(1.0f, 0.0f);
+		move += Vector2D(2.5f, 0.0f);
 		angle = DX_PI_F / 18;
 	}
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_UP))
@@ -241,6 +248,18 @@ void Player::Movement()
 	{
 		location -= move;
 	}
+
+}
+
+//çUåÇîªíËèàóù
+void Player::DrawHand()
+{
+	hand_image = true;	
+}
+
+void Player::AttackEnd()
+{
+	hand_image = false;
 }
 
 ////â¡å∏ë¨èàóù
