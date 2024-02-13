@@ -43,6 +43,9 @@ void GameMainScene::Initialize()
 	int result = LoadDivGraph("Resource/images/items.png", 2, 2, 1, 64, 64,
 		enemy_image);
 
+	//SEの読み込み
+//	SE[0] = LoadSoundMem("sounds/")
+
 	//エラーチェック
 	if (back_ground == -1)
 	{
@@ -87,7 +90,16 @@ eSceneType GameMainScene::Update()
 		{
 			if (enemy[i] == nullptr)
 			{
-				int type = GetRand(3) % 3;
+				int type = GetRand(10) % 10;
+				if (type <= 7)
+				{
+					type = 1;
+				}
+				else
+				{
+					type = 0;
+				}
+
 				enemy[i] = new Enemy(type, enemy_image[type]);
 				enemy[i]->Initialize();
 				break;
@@ -121,6 +133,8 @@ eSceneType GameMainScene::Update()
 			}
 			if (IsHitCheck(player, enemy[i]) && enemy[i]->GetType() == 1)
 			{
+
+
 				player->SetActive(false);
 				player->DecreaseHp(-50.0f);
 				enemy[i]->Finalize();
