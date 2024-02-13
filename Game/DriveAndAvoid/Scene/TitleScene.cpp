@@ -17,9 +17,10 @@ TitleScene::~TitleScene()
 void TitleScene::Initialize()
 {
 	//画像の読み込み
-	background_image = LoadGraph("Resource/images/Title.bmp");
+	background_image = LoadGraph("Resource/images/Title.png");
 	menu_image = LoadGraph("Resource/images/menu.bmp");
 	cursor_image = LoadGraph("Resource/images/cone.bmp");
+	
 
 	//エラーチェック
 	if (background_image == -1)
@@ -87,6 +88,9 @@ void TitleScene::Draw() const
 {
 	//タイトル画像の描画
 	DrawGraph(0, 0, background_image, FALSE);
+
+	//HappyCtの再生
+	//PlayMovie("Happycat.mp4", 1, DX_MOVIEPLAYTYPE_NORMAL);
 
 	//メニュ－画像の描画
 	DrawGraph(120, 200, menu_image, TRUE);

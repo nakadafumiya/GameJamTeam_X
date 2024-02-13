@@ -16,8 +16,8 @@ HelpScene::~HelpScene()
 void HelpScene::Initialize()
 {
 	//画像の読み込み
-	background_image = LoadGraph("Resource/images/Title.bmp");
-
+	background_image = LoadGraph("Resource/images/BackImage.png");
+	
 	//エラーチェック
 	if (background_image == -1)
 	{
@@ -55,6 +55,8 @@ void HelpScene:: Draw() const
 	DrawString(20, 220, "数回当たるとゲームオーバーです。", 0xffffff, 0);
 
 	DrawString(150, 450, "----　Bボタンを押してタイトルへ戻る　----", 0xffffff, 0);
+
+	PlayMovie("HappyCat.gif", 1, DX_MOVIEPLAYTYPE_NORMAL);
 
 }
 
