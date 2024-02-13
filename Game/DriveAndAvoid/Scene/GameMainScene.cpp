@@ -44,7 +44,13 @@ void GameMainScene::Initialize()
 		enemy_image);
 
 	//SEの読み込み
-//	SE[0] = LoadSoundMem("sounds/")
+	SE[0] = LoadSoundMem("Resource/se/water.mp3");
+	SE[1] = LoadSoundMem("Resource/se/water_2.mp3");
+
+
+	//音量の調整
+	ChangeVolumeSoundMem(150, SE[0]);
+	ChangeVolumeSoundMem(150, SE[1]);
 
 	//エラーチェック
 	if (back_ground == -1)
@@ -134,6 +140,7 @@ eSceneType GameMainScene::Update()
 			if (IsHitCheck(player, enemy[i]) && enemy[i]->GetType() == 1)
 			{
 
+				PlaySoundMem(SE[1], DX_PLAYTYPE_BACK, TRUE);
 
 				player->SetActive(false);
 				player->DecreaseHp(-50.0f);
