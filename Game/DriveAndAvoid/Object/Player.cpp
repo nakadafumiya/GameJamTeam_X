@@ -29,7 +29,7 @@ void Player::Initialize()
 	barrier_count = 3;
 
 	//画像の読み込み
-	image = LoadGraph("Resource/images/car1pol.bmp");
+	image = LoadGraph("Resource/images/catrun_left1.png");
 
 	//エラーチェック
 	if (image == -1)

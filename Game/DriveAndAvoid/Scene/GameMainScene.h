@@ -13,7 +13,7 @@ private:
 	int mileage;			//走行距離
 	int enemy_image[2];		//敵画像
 	int enemy_count[2];		//通り過ぎた敵カウント
-
+	int Itemcount;			//アイテムの取得数
 	int SE[2];				//サウンドエフェクト
 
 	Player* player;			//プレイヤー
