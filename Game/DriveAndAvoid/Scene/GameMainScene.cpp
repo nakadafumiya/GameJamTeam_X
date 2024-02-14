@@ -127,14 +127,20 @@ eSceneType GameMainScene::Update()
 			if (IsHitCheck(player, enemy[i]) && enemy[i]->GetType() == 0)
 			{
 				player->DecreaseHp(+50.0f);
+				if (player->GetHp() > 1000) 
+				{
+					float pHp = player->GetHp();
+					player->DecreaseHp(-(pHp - 1000));
+				}
 				enemy[i]->Finalize();
 				delete enemy[i];
 				enemy[i] = nullptr;
 			}
+
 			if (IsHitCheck(player, enemy[i]) && enemy[i]->GetType() == 1)
 			{
 				player->SetActive(false);
-				player->DecreaseHp(-334.0f);
+				player->DecreaseHp(-20.0f);
 				enemy[i]->Finalize();
 				delete enemy[i];
 				enemy[i] = nullptr;

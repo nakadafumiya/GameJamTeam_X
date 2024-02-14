@@ -7,10 +7,10 @@ angle(0.0f),
 speed(0.0f), hp(0.0f),  barrier_count(0),player_direction(0),player_imagecount(0),player_stun(0),
 barrier(nullptr)
 {
-	image_left1 = LoadGraph("Resource/images/catrun_left1.png");
-	image_left2 = LoadGraph("Resource/images/catrun_left2.png");
-	image_right1 = LoadGraph("Resource/images/catrun_right1.png");
-	image_right2 = LoadGraph("Resource/images/catrun_right2.png");
+	image_left1 = LoadGraph("Resource/images/catrun_left_1.png");
+	image_left2 = LoadGraph("Resource/images/catrun_left_2.png");
+	image_right1 = LoadGraph("Resource/images/catrun_right_1.png");
+	image_right2 = LoadGraph("Resource/images/catrun_right_2.png");
 	image_stun = LoadGraph("Resource/images/catstun.png");
 }
 
@@ -25,7 +25,7 @@ void Player::Initialize()
 {
 	is_active = true;
 	location = Vector2D(320.0f, 380.0f);
-	box_size = Vector2D(31.0f, 60.0f);
+	box_size = Vector2D(30.0f, 1.0f);
 	angle = 0.0f;
 	speed = 3.0f;
 	hp = 1000;
@@ -33,7 +33,7 @@ void Player::Initialize()
 	barrier_count = 3;
 
 	//画像の読み込み
-	image = LoadGraph("Resource/images/catrun_left1.png");
+	image = LoadGraph("Resource/images/catrun_left_1.png");
 
 	//エラーチェック
 	if (image == -1)
@@ -81,7 +81,7 @@ void Player::Update()
 	}
 
 	//バリア処理
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_B) && barrier_count > 0)
+	if (InputControl::GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER) && barrier_count > 0)
 	{
 		if(barrier == nullptr)
 		{
@@ -108,11 +108,14 @@ void Player::Draw()
 	//プレイヤー画像の描画
 	DrawRotaGraphF(location.x, location.y, 1.0, angle, image, TRUE);
 
+	
+
 	//バリアが生成されていたら、描画を行う
 	if (barrier != nullptr)
 	{
 		barrier->Draw(this->location);
 	}
+
 
 	if (player_stun == 1)
 	{
