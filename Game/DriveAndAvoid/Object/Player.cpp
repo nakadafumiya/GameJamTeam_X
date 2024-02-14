@@ -58,7 +58,6 @@ void Player::Update()
 	{
 		player_stun = 1;
 		angle += DX_PI_F / 24.0f;
-		speed = 1.0f;
 		if (angle >= DX_PI_F * 4.0f)
 		{
 			player_stun = 0;
