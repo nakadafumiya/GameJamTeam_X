@@ -94,7 +94,7 @@ eSceneType GameMainScene::Update()
 				int type = GetRand(20) % 20;
 				if (type <= 10)
 				{
-					type = 2;
+					type = 1;
 				}
 				else if (type > 10 && type <= 15) 
 				{
@@ -150,11 +150,12 @@ eSceneType GameMainScene::Update()
 			{
 				if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
 				{
-					player->DrawHand();
+					player->Attack();
 
 					enemy[i]->Finalize();
 					delete enemy[i];
 					enemy[i] = nullptr;
+					player->GetBarriarCount();
 
 				}
 

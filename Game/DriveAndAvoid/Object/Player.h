@@ -49,7 +49,7 @@ public:
 	int GetBarriarCount() const;	//バリアの枚数取得
 	bool IsBarrier() const;				//バリアが有効か？を取得
 
-	void DrawHand();						//攻撃判定処理
+	void Attack();						//攻撃判定処理
 	void AttackEnd();					//攻撃判定処理		
 
 private:

@@ -254,9 +254,14 @@ void Player::Movement()
 }
 
 //UŒ‚”»’èˆ—
-void Player::DrawHand()
+void Player::Attack()
 {
 	hand_image = true;	
+	
+	if (barrier_count < 3)
+	{
+		barrier_count++;
+	}
 }
 
 void Player::AttackEnd()
