@@ -44,7 +44,7 @@ void GameMainScene::Initialize()
 	ReadHighScore();
 
 	//�摜�̓ǂݍ���
-	back_ground = LoadGraph("Resource/images/back.bmp");
+	back_ground = LoadGraph("Resource/images/stage2.png");
 	barrier_image = LoadGraph("Resource/images/catbarrier.png");
 	int result = LoadDivGraph("Resource/images/items2.png", 3, 3, 1, 64, 64,
 		enemy_image);
