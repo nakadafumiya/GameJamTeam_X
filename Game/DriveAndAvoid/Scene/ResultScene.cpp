@@ -100,7 +100,7 @@ TRUE);
 
 		DrawRotaGraph(230, 260, 1.0f, 0, enemy_image[0],
 			TRUE);
-	DrawFormatString(230, 255, GetColor(0, 0, 0), "    =%d",item->GetItemCount());
+	/*DrawFormatString(230, 255, GetColor(0, 0, 0), "    =%d",item->GetItemCount());*/
 	DrawRotaGraph(180, 340, 0.2f, 0, ResultFont[1], TRUE);
 	/*DrawString(180, 290, "ÉXÉRÉA", GetColor(0, 0, 0));*/
 	DrawFormatString(180, 333, 0xFFFFFF, "     =%6d", score);

@@ -162,7 +162,7 @@ eSceneType GameMainScene::Update()
 			if (IsHitCheck(player, enemy[i]) && enemy[i]->GetType() == 1)
 			{
 				player->SetActive(false);
-				player->DecreaseHp(-501.0f);
+				player->DecreaseHp(-334.0f);
 				enemy[i]->Finalize();
 				delete enemy[i];
 				enemy[i] = nullptr;
@@ -260,7 +260,7 @@ void GameMainScene::Draw() const
 	DrawFormatString(510, 190, GetColor(0, 0, 0), "GETしたアイテム数");
 	DrawRotaGraph(530, 230, 0.7f, 0, enemy_image[0], TRUE, FALSE);
 	SetFontSize(25);
-	DrawFormatString(550, 213, GetColor(0, 0, 0), "= %d", GetItemCount());
+	DrawFormatString(550, 213, GetColor(0, 0, 0), "= %d", Itemcount);
 	
 	//�̗̓Q�[�W�̕`��
 	float fx = 510.0f;
@@ -277,7 +277,7 @@ void GameMainScene::Draw() const
 //�I��������
 void GameMainScene::Finalize()
 {
-	Itemcount = GetItemCount();
+	
 	//�X�R�A���v�Z����
 	int score = (mileage / 10 * 10);
 	for (int i = 0; i < 3; i++)
@@ -369,7 +369,7 @@ bool GameMainScene::IsHitCheck(Player* p, Enemy* e)
 }
 
 //アイテム取得数処理
-int GameMainScene::GetItemCount() const
-{
-	return Itemcount;
-}
+//int GameMainScene::GetItemCount() const
+//{
+//	return Itemcount;
+//}

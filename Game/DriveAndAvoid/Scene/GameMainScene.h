@@ -21,9 +21,7 @@ private:
 	Enemy** enemy;			//敵
 
 
-	int Itemcount;			//アイテム取得時カウント
-	Player* player;			//プレイヤー
-	Enemy** enemy;			//敵
+	
 
 	int MainBGM;       // BGM
 
@@ -39,7 +37,7 @@ public:
 	virtual eSceneType GetNowScene() const override;
 
 	//アイテムを取得した数
-	 int GetItemCount() const;
+	/* int GetItemCount() const;*/
 private:
 	//ハイスコア読み込み処理
 	void ReadHighScore();
