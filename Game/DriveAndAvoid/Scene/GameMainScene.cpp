@@ -28,6 +28,8 @@ enemy(nullptr), Itemcount(0)
 	MainBGM = LoadSoundMem("Resource/music/CatRun.mp3");
 	SE[0] = LoadSoundMem("Resource/music/catSE1.mp3");
 	SE[1] = LoadSoundMem("Resource/music/catSE3_2.mp3");
+	SE[2] = NULL;
+	SE[3] = NULL;
 }
 
 GameMainScene::~GameMainScene()
@@ -43,7 +45,7 @@ void GameMainScene::Initialize()
 
 	//�摜�̓ǂݍ���
 	back_ground = LoadGraph("Resource/images/back.bmp");
-	barrier_image = LoadGraph("Resource/images/barrier.png");
+	barrier_image = LoadGraph("Resource/images/catbarrier.png");
 	int result = LoadDivGraph("Resource/images/items2.png", 3, 3, 1, 64, 64,
 		enemy_image);
 
@@ -81,9 +83,9 @@ void GameMainScene::Initialize()
 	}
 
 	// BGMの再生
-	ChangeVolumeSoundMem(80,MainBGM);
-	ChangeVolumeSoundMem(100, SE[0]);
-	ChangeVolumeSoundMem(100, SE[1]);
+	ChangeVolumeSoundMem(200,MainBGM);
+	ChangeVolumeSoundMem(200, SE[0]);
+	ChangeVolumeSoundMem(200, SE[1]);
 	PlaySoundMem(MainBGM, DX_PLAYTYPE_LOOP, TRUE);
 				
 }
