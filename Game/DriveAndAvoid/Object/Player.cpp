@@ -4,10 +4,15 @@
 
 Player::Player() : is_active(false), image(NULL), location(0.0f), box_size(0.0f),
 angle(0.0f),
-speed(0.0f), hp(0.0f),  barrier_count(0),
+speed(0.0f), hp(0.0f),  barrier_count(0),player_direction(0),player_imagecount(0),player_stun(0),
 barrier(nullptr)
 {
-
+	image_left1 = LoadGraph("Resource/images/catrun_left1.png");
+	image_left2 = LoadGraph("Resource/images/catrun_left2.png");
+	image_right1 = LoadGraph("Resource/images/catrun_right1.png");
+	image_right2 = LoadGraph("Resource/images/catrun_right2.png");
+	image_stun = LoadGraph("Resource/images/catstun.png");
+	image_cat_hand = LoadGraph("Resource/images/cat_hand.png");
 }
 
 Player::~Player()
@@ -23,7 +28,7 @@ void Player::Initialize()
 	location = Vector2D(320.0f, 380.0f);
 	box_size = Vector2D(31.0f, 60.0f);
 	angle = 0.0f;
-	speed = 3.0f;
+	speed = 6.0f;
 	hp = 1000;
 	/*fuel = 20000;*/
 	barrier_count = 3;
@@ -34,20 +39,29 @@ void Player::Initialize()
 	//エラーチェック
 	if (image == -1)
 	{
-		throw("Resource/images/car1pol.bmpがありません\n");
+		throw("Resource/images/catleft_1.pngがありません\n");
 	}
 }
 
 //更新処理
 void Player::Update()
 {
+	// ゲーム中常に加算する
+	player_imagecount++;
+
+	if (player_imagecount > 60)
+	{
+		player_imagecount = 0;
+	}
 	//操作不可状態であれば、自身を回転させる
 	if (!is_active)
 	{
+		player_stun = 1;
 		angle += DX_PI_F / 24.0f;
 		speed = 1.0f;
 		if (angle >= DX_PI_F * 4.0f)
 		{
+			player_stun = 0;
 			is_active = true;
 		}
 		return;
@@ -59,8 +73,8 @@ void Player::Update()
 	//移動処理
 	Movement();
 
-	//加減速処理
-	Acceleration();
+	////加減速処理
+	//Acceleration();
 	
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_START))
 	{
@@ -99,6 +113,37 @@ void Player::Draw()
 	if (barrier != nullptr)
 	{
 		barrier->Draw(this->location);
+	}
+
+	if (player_stun == 1)
+	{
+		image = image_stun;
+	}
+
+	if (player_imagecount < 30 && player_direction == 0 && player_stun != 1)
+	{
+		image = image_left1;
+	}
+	else if (player_imagecount > 29 && player_direction == 0 && player_stun != 1)
+	{
+		image = image_left2;
+	}
+
+	if (player_imagecount < 30 && player_direction == 1 && player_stun != 1)
+	{
+		image = image_right1;
+	}
+	else if (player_imagecount > 29 && player_direction == 1 && player_stun != 1)
+	{
+		image = image_right2;
+	}
+
+	if(hand_image == true)
+	{
+
+		DrawRotaGraph(location.x, location.y, 1.0, angle, image_cat_hand, TRUE);
+
+		hand_image = false;
 	}
 }
 
@@ -178,12 +223,14 @@ void Player::Movement()
 	//十字移動処理
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_LEFT))
 	{
-		move += Vector2D(-1.0f, 0.0f);
+		player_direction = 0;
+		move += Vector2D(-2.5f, 0.0f);
 		angle = -DX_PI_F / 18;
 	}
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_RIGHT))
 	{
-		move += Vector2D(1.0f, 0.0f);
+		player_direction = 1;
+		move += Vector2D(2.5f, 0.0f);
 		angle = DX_PI_F / 18;
 	}
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_UP))
@@ -203,20 +250,32 @@ void Player::Movement()
 	{
 		location -= move;
 	}
+
 }
 
-//加減速処理
-void Player::Acceleration()
+//攻撃判定処理
+void Player::DrawHand()
 {
-	//LBボタンが押されたら、減速する
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER) && speed > 1.0f)
-	{
-		speed -= 1.0f;
-	}
-
-	//RBボタンが押されたら、加速する
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_RIGHT_SHOULDER) && speed < 10.0f)
-	{
-		speed += 1.0f;
-	}
+	hand_image = true;	
 }
+
+void Player::AttackEnd()
+{
+//	hand_image = false;
+}
+
+////加減速処理
+//void Player::Acceleration()
+//{
+//	//LBボタンが押されたら、減速する
+//	if (InputControl::GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER) && speed > 1.0f)
+//	{
+//		speed -= 1.0f;
+//	}
+//
+//	//RBボタンが押されたら、加速する
+//	if (InputControl::GetButtonDown(XINPUT_BUTTON_RIGHT_SHOULDER) && speed < 10.0f)
+//	{
+//		speed += 1.0f;
+//	}
+//}

@@ -1,4 +1,5 @@
 #include "GameMainScene.h"
+#include "../Utility/InputControl.h"
 #include "../Object/RankingData.h"
 #include "DxLib.h"
 #include <math.h>
@@ -40,7 +41,7 @@ void GameMainScene::Initialize()
 	//�摜�̓ǂݍ���
 	back_ground = LoadGraph("Resource/images/back.bmp");
 	barrier_image = LoadGraph("Resource/images/barrier.png");
-	int result = LoadDivGraph("Resource/images/items.png", 2, 2, 1, 64, 64,
+	int result = LoadDivGraph("Resource/images/items2.png", 3, 3, 1, 64, 64,
 		enemy_image);
 
 	//SE�̓ǂݍ���
@@ -90,10 +91,14 @@ eSceneType GameMainScene::Update()
 		{
 			if (enemy[i] == nullptr)
 			{
-				int type = GetRand(10) % 10;
-				if (type <= 7)
+				int type = GetRand(20) % 20;
+				if (type <= 10)
 				{
-					type = 1;
+					type = 2;
+				}
+				else if (type > 10 && type <= 15) 
+				{
+					type = 2;
 				}
 				else
 				{
@@ -142,6 +147,21 @@ eSceneType GameMainScene::Update()
 				enemy[i]->Finalize();
 				delete enemy[i];
 				enemy[i] = nullptr;
+			}
+			if (IsHitCheck(player, enemy[i]) && enemy[i]->GetType() == 2)
+			{
+				if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
+				{
+					player->DrawHand();
+
+					enemy[i]->Finalize();
+					delete enemy[i];
+					enemy[i] = nullptr;
+
+				}
+
+				player->AttackEnd();
+
 			}
 		}
 
