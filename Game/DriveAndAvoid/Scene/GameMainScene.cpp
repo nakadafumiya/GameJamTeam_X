@@ -27,7 +27,7 @@ enemy(nullptr), Itemcount(0)
 	}
 	MainBGM = LoadSoundMem("Resource/music/CatRun.mp3");
 	SE[0] = LoadSoundMem("Resource/music/catSE1.mp3");
-	SE[1] = LoadSoundMem("Resource/music/catSE3.mp3");
+	SE[1] = LoadSoundMem("Resource/music/catSE3_2.mp3");
 }
 
 GameMainScene::~GameMainScene()
@@ -163,7 +163,7 @@ eSceneType GameMainScene::Update()
 			{
 				player->SetActive(false);
 				player->DecreaseHp(-334.0f);
-				if (player->GetHp() > 0)
+				if (player->GetHp() > 0.1f)
 				{
 					PlaySoundMem(SE[1], DX_PLAYTYPE_BACK, TRUE);
 				}
