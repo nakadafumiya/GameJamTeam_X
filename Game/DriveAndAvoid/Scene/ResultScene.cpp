@@ -3,12 +3,18 @@
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
 
+
 ResultScene::ResultScene() : back_ground(NULL), score(0)
 {
 	for (int i = 0; i < 3; i++)
 	{
 		enemy_image[i] = NULL;
 		enemy_count[i] = NULL;
+	}
+
+	for (int i = 0; i <3; i++)
+	{
+		ResultFont[i] = NULL;
 	}
 }
 
@@ -22,8 +28,13 @@ void ResultScene::Initialize()
 {
 	//画像の読み込み
 	back_ground = LoadGraph("Resource/images/back.bmp");
-	int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120,
+	int result = LoadDivGraph("Resource/images/items2.png", 3, 3, 1, 64, 64,
 		enemy_image);
+	ResultFont[0] = LoadGraph("Resource/images/Font_gameover.png");
+	ResultFont[1] = LoadGraph("Resource/images/Font_gamescore.png");
+	ResultFont[2] = LoadGraph("Resource/images/Font_rundistance.png");
+		
+
 
 	//エラーチェック
 	if (back_ground == -1)
@@ -33,6 +44,14 @@ void ResultScene::Initialize()
 	if (result == -1)
 	{
 		throw ("Resource/images/car.bmpがありません\n");
+	}
+	if (ResultFont[0] == -1)
+	{
+		throw ("Resource/images/Font_gemeover.pngがありません\n");
+	}
+	if (ResultFont[1] == -1)
+	{
+		throw ("Resource/images/Font_gamescore.pngがありません\n");
 	}
 
 	//ゲーム結果の読み込み
@@ -59,24 +78,32 @@ void ResultScene::Draw() const
 	DrawGraph(0, 0, back_ground, TRUE);
 
 	//スコア等表示領域
-	DrawBox(150, 150, 490, 330, GetColor(0, 153, 0), TRUE);
-	DrawBox(150, 150, 490, 330, GetColor(0, 0, 0), FALSE);//<-
 
 	DrawBox(500, 0, 640, 480, GetColor(0, 153, 0), TRUE);
 
-	SetFontSize(20);
-	DrawString(220, 170, "ゲームオーバー", GetColor(204, 0, 0));
+	DrawBox(100, 100, 540, 380, GetColor(0, 153, 0), TRUE);
+	DrawBox(100, 100, 540, 380, GetColor(0, 0, 0), FALSE);//<-
+
+	
+	
+	DrawRotaGraph(220, 170, 0.2f, 0, ResultFont[0], TRUE);
 	SetFontSize(16);
-	DrawString(180, 200, "走行距離　　　", GetColor(0, 0, 0));//<-
+	//DrawString(180, 200, "走行距離　　　", GetColor(0, 0, 0));//<-
+	DrawRotaGraph(200, 200, 0.2f, 0, ResultFont[2], TRUE);
 	for (int i = 0; i < 3; i++)
-	{
-		DrawRotaGraph(230, 230 + (i * 20), 0.3f, DX_PI_F / 2, enemy_image[i],
-TRUE);
+	/*{
+		DrawRotaGraph(230, 230 + (i * 20), 0.5f, 0, enemy_image[i],
+TRUE);		
 		DrawFormatString(260, 222 + (i * 21), GetColor(255, 255, 255), "%6d x%4d=%6d",
 			enemy_count[i], (i + 1) * 50, (i + 1) * 50 * enemy_count[i]);
-	}
-	DrawString(180, 290, "スコア", GetColor(0, 0, 0));
-	DrawFormatString(180, 290, 0xFFFFFF, "     =%6d", score);
+	}*/
+
+		DrawRotaGraph(230, 260, 1.0f, 0, enemy_image[0],
+			TRUE);
+	DrawFormatString(230, 255, GetColor(0, 0, 0), "    =%d",item->GetItemCount());
+	DrawRotaGraph(180, 340, 0.2f, 0, ResultFont[1], TRUE);
+	/*DrawString(180, 290, "スコア", GetColor(0, 0, 0));*/
+	DrawFormatString(180, 333, 0xFFFFFF, "     =%6d", score);
 }
 
 //終了時処理
