@@ -94,7 +94,7 @@ eSceneType GameMainScene::Update()
 				int type = GetRand(20) % 20;
 				if (type <= 10)
 				{
-					type = 2;
+					type = 1;
 				}
 				else if (type > 10 && type <= 15) 
 				{
