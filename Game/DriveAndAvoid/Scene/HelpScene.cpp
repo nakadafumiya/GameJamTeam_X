@@ -12,10 +12,11 @@ HelpScene::~HelpScene()
 
 }
 
-//‰Šú‰»ˆ—
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void HelpScene::Initialize()
 {
-	//‰æ‘œ‚Ì“Ç‚İ‚İ
+	//ï¿½æ‘œï¿½Ì“Ç‚İï¿½ï¿½ï¿½
+
 	background_image = LoadGraph("Resource/images/BackImage.png");
 	Help_Font = LoadGraph("Resource/images/Help_Font.png");
 	Help_Cat = LoadGraph("Resource/images/Help_Cat.png");
@@ -23,18 +24,19 @@ void HelpScene::Initialize()
 	Help_HP= LoadGraph("Resource/images/Help_HP.png");
 	Help_HP2= LoadGraph("Resource/images/Help_HP2.png");
 	Help_Item = LoadGraph("Resource/images/Help_Item.png");
-	//ƒGƒ‰[ƒ`ƒFƒbƒN
+
+	//ï¿½Gï¿½ï¿½ï¿½[ï¿½`ï¿½Fï¿½bï¿½N
 	if (background_image == -1)
 	{
-		throw ("Resource/images/Title.bmp‚ª‚ ‚è‚Ü‚¹‚ñ\n");
+		throw ("Resource/images/Title.pngï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½\n");
 	}
 
 }
 
-//XVˆ—
+//ï¿½Xï¿½Vï¿½ï¿½ï¿½ï¿½
 eSceneType HelpScene::Update()
 {
-	//Bƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çAƒ^ƒCƒgƒ‹‚É–ß‚é
+	//Bï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½Aï¿½^ï¿½Cï¿½gï¿½ï¿½ï¿½É–ß‚ï¿½
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
 		return eSceneType::E_TITLE;
@@ -44,10 +46,10 @@ eSceneType HelpScene::Update()
 
 }
 
-//•`‰æˆ—
+//ï¿½`ï¿½æˆï¿½ï¿½
 void HelpScene:: Draw() const
 {
-	//”wŒi‰æ‘œ‚Ì•`‰æ
+	//ï¿½wï¿½iï¿½æ‘œï¿½Ì•`ï¿½ï¿½
 	DrawGraph(0, 0, background_image, FALSE);
 	DrawGraph(200, 10, Help_Font, TRUE);
 	DrawGraph(40, 200, Help_Cat, TRUE);
@@ -57,26 +59,26 @@ void HelpScene:: Draw() const
 	DrawGraph(10, 350, Help_Item, TRUE);
 
 
-	//ƒQ[ƒ€à–¾
+	//ï¿½Qï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	SetFontSize(16);
 
-	DrawString(160, 100, "”L‚¿‚á‚ñ‚ğ‘€ì‚µ‚ÄƒnƒCƒXƒRƒA‚ğ–Úw‚¹I", 0xffffff, 0);
-	DrawString(20, 180, "…‚½‚Ü‚è‚ğ“¥‚Ş‚Æ”L‚¿‚á‚ñ‚ªŠŠ‚Á‚Äƒ_ƒ[ƒW‚ğ‹ò‚ç‚¤‚¼I", 0xffffff, 0);
-	DrawString(20, 300, "”LŠÊ‚ğH‚×‚Ä‰ñ•œ‚µ‚æ‚¤I", 0xffffff, 0);
-	DrawString(300, 300, "ƒlƒYƒ~‚ğ“|‚·‚ÆƒoƒŠƒA‚ª‰ñ•œI", 0xffffff, 0);
+	DrawString(160, 100, "ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½ğ‘€ì‚µï¿½Äƒnï¿½Cï¿½Xï¿½Rï¿½Aï¿½ï¿½Úwï¿½ï¿½ï¿½I", 0xffffff, 0);
+	DrawString(20, 180, "ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ğ“¥‚Ş‚Æ”Lï¿½ï¿½ï¿½ï¿½ñ‚ªŠï¿½ï¿½ï¿½ï¿½Äƒ_ï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ç‚¤ï¿½ï¿½ï¿½I", 0xffffff, 0);
+	DrawString(20, 300, "ï¿½Lï¿½Ê‚ï¿½Hï¿½×‚Ä‰ñ•œ‚ï¿½ï¿½æ‚¤ï¿½I", 0xffffff, 0);
+	DrawString(300, 300, "ï¿½lï¿½Yï¿½~ï¿½ï¿½|ï¿½ï¿½ï¿½Æƒoï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ñ•œI", 0xffffff, 0);
 
-	DrawString(150, 450, "----@Bƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚Äƒ^ƒCƒgƒ‹‚Ö–ß‚é@----", 0xffffff, 0);
+	DrawString(150, 450, "----ï¿½@Bï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äƒ^ï¿½Cï¿½gï¿½ï¿½ï¿½Ö–ß‚ï¿½@----", 0xffffff, 0);
 
 }
 
-//I—¹ˆ—
+//ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void HelpScene::Finalize()
 {
-	//“Ç‚İ‚ñ‚¾‰æ‘œ‚Ìíœ
+	//ï¿½Ç‚İï¿½ï¿½ñ‚¾‰æ‘œï¿½Ìíœ
 	DeleteGraph(background_image);
 }
 
-//Œ»İ‚ÌƒV[ƒ“î•ñ‚ğæ“¾
+//ï¿½ï¿½ï¿½İ‚ÌƒVï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾
 eSceneType HelpScene::GetNowScene() const
 {
 	return eSceneType::E_HELP;

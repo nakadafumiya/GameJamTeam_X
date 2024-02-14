@@ -18,7 +18,7 @@
 GameMainScene::GameMainScene() : high_score(0), back_ground(NULL),
 barrier_image(NULL),
 									mileage(0),player(nullptr),
-enemy(nullptr)
+enemy(nullptr), Itemcount(0)
 {
 	for (int i = 0; i < 3; i++)
 	{
@@ -129,17 +129,23 @@ eSceneType GameMainScene::Update()
 			}
 
 			//�����蔻��̊m�F
+			
 			if (IsHitCheck(player, enemy[i]) && enemy[i]->GetType() == 0)
 			{
+				++Itemcount;
 				player->DecreaseHp(+50.0f);
+				if (player->GetHp() > 1000) 
+				{
+					float pHp = player->GetHp();
+					player->DecreaseHp(-(pHp - 1000));
+				}
 				enemy[i]->Finalize();
 				delete enemy[i];
 				enemy[i] = nullptr;
 			}
+
 			if (IsHitCheck(player, enemy[i]) && enemy[i]->GetType() == 1)
 			{
-
-
 				player->SetActive(false);
 				player->DecreaseHp(-334.0f);
 				enemy[i]->Finalize();
@@ -207,6 +213,7 @@ void GameMainScene::Draw() const
 		DrawFormatString(510 + (i * 50), 140, GetColor(255, 255, 255), "%03d",
 			enemy_count[i]);
 	}*/
+
 	DrawFormatString(510, 70, GetColor(0, 0, 0), "���s����");
 	DrawFormatString(555, 90, GetColor(255, 255, 255), "%08d", mileage / 10);
 	/*DrawFormatString(510, 240, GetColor(0, 0, 0), "�X�s�[�h");
@@ -228,10 +235,17 @@ void GameMainScene::Draw() const
 		40.0f, GetColor(0, 102, 204), TRUE);
 	DrawBoxAA(fx, fy + 20.0f, fx + 100.0f, fy + 40.0f, GetColor(0, 0, 0),
 		FALSE);*/
+
+		//Itemの取得した数
+	DrawFormatString(510, 190, GetColor(0, 0, 0), "GETしたアイテム数");
+	DrawRotaGraph(530, 230, 0.7f, 0, enemy_image[0], TRUE, FALSE);
+	SetFontSize(25);
+	DrawFormatString(550, 213, GetColor(0, 0, 0), "= %d", Itemcount);
 	
 	//�̗̓Q�[�W�̕`��
 	float fx = 510.0f;
 	float fy = 430.0f;
+	SetFontSize(16);
 	DrawFormatStringF(fx, fy, GetColor(0, 0, 0), "PLAYER HP");
 	DrawBoxAA(fx, fy + 20.0f, fx + (player->GetHp() * 100 / 1000), fy +
 		40.0f,GetColor(255, 0, 0), TRUE);

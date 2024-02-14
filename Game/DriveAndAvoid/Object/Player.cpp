@@ -7,10 +7,10 @@ angle(0.0f),
 speed(0.0f), hp(0.0f),  barrier_count(0),player_direction(0),player_imagecount(0),player_stun(0),
 barrier(nullptr)
 {
-	image_left1 = LoadGraph("Resource/images/catrun_left1.png");
-	image_left2 = LoadGraph("Resource/images/catrun_left2.png");
-	image_right1 = LoadGraph("Resource/images/catrun_right1.png");
-	image_right2 = LoadGraph("Resource/images/catrun_right2.png");
+	image_left1 = LoadGraph("Resource/images/catrun_left_1.png");
+	image_left2 = LoadGraph("Resource/images/catrun_left_2.png");
+	image_right1 = LoadGraph("Resource/images/catrun_right_1.png");
+	image_right2 = LoadGraph("Resource/images/catrun_right_2.png");
 	image_stun = LoadGraph("Resource/images/catstun.png");
 	image_cat_hand = LoadGraph("Resource/images/cat_hand.png");
 }
@@ -21,44 +21,43 @@ Player::~Player()
 
 }
 
-//‰Šú‰»ˆ—
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void Player::Initialize()
 {
 	is_active = true;
 	location = Vector2D(320.0f, 380.0f);
-	box_size = Vector2D(31.0f, 60.0f);
+	box_size = Vector2D(30.0f, 1.0f);
 	angle = 0.0f;
 	speed = 6.0f;
 	hp = 1000;
 	/*fuel = 20000;*/
 	barrier_count = 3;
 
-	//‰æ‘œ‚Ì“Ç‚İ‚İ
-	image = LoadGraph("Resource/images/catrun_left1.png");
+	//ï¿½æ‘œï¿½Ì“Ç‚İï¿½ï¿½ï¿½
+	image = LoadGraph("Resource/images/catrun_left_1.png");
 
-	//ƒGƒ‰[ƒ`ƒFƒbƒN
+	//ï¿½Gï¿½ï¿½ï¿½[ï¿½`ï¿½Fï¿½bï¿½N
 	if (image == -1)
 	{
-		throw("Resource/images/catleft_1.png‚ª‚ ‚è‚Ü‚¹‚ñ\n");
+		throw("Resource/images/catleft_1.pngï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½\n");
 	}
 }
 
-//XVˆ—
+//ï¿½Xï¿½Vï¿½ï¿½ï¿½ï¿½
 void Player::Update()
 {
-	// ƒQ[ƒ€’†í‚É‰ÁZ‚·‚é
+	// ï¿½Qï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É‰ï¿½ï¿½Zï¿½ï¿½ï¿½ï¿½
 	player_imagecount++;
 
 	if (player_imagecount > 60)
 	{
 		player_imagecount = 0;
 	}
-	//‘€ì•s‰Âó‘Ô‚Å‚ ‚ê‚ÎA©g‚ğ‰ñ“]‚³‚¹‚é
+	//ï¿½ï¿½ï¿½ï¿½sï¿½Âï¿½Ô‚Å‚ï¿½ï¿½ï¿½ÎAï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (!is_active)
 	{
 		player_stun = 1;
 		angle += DX_PI_F / 24.0f;
-		speed = 1.0f;
 		if (angle >= DX_PI_F * 4.0f)
 		{
 			player_stun = 0;
@@ -67,13 +66,13 @@ void Player::Update()
 		return;
 	}
 
-	//”R—¿‚ÌÁ”ï
+	//ï¿½Rï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½
 	/*fuel -= speed;*/
 
-	//ˆÚ“®ˆ—
+	//ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½
 	Movement();
 
-	////‰ÁŒ¸‘¬ˆ—
+	////ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	//Acceleration();
 	
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_START))
@@ -81,8 +80,8 @@ void Player::Update()
 		is_active = false;
 	}
 
-	//ƒoƒŠƒAˆ—
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_B) && barrier_count > 0)
+	//ï¿½oï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½
+	if (InputControl::GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER) && barrier_count > 0)
 	{
 		if(barrier == nullptr)
 		{
@@ -91,10 +90,10 @@ void Player::Update()
 		}
 	}
 
-	//ƒoƒŠƒA‚ª¶¬‚³‚ê‚Ä‚¢‚½‚çAXV‚ğs‚¤
+	//ï¿½oï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½Xï¿½Vï¿½ï¿½ï¿½sï¿½ï¿½
 	if (barrier != nullptr)
 	{
-		//ƒoƒŠƒAŠÔ‚ªŒo‰ß‚µ‚½‚©H‚µ‚Ä‚¢‚½‚çAíœ‚·‚é
+		//ï¿½oï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½Ô‚ï¿½ï¿½oï¿½ß‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Hï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½íœï¿½ï¿½ï¿½ï¿½
 		if (barrier->IsFinished(this->speed))
 		{
 			delete barrier;
@@ -103,17 +102,20 @@ void Player::Update()
 	}
 }
 
-//•`‰æˆ—
+//ï¿½`ï¿½æˆï¿½ï¿½
 void Player::Draw()
 {
-	//ƒvƒŒƒCƒ„[‰æ‘œ‚Ì•`‰æ
+	//ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½æ‘œï¿½Ì•`ï¿½ï¿½
 	DrawRotaGraphF(location.x, location.y, 1.0, angle, image, TRUE);
 
-	//ƒoƒŠƒA‚ª¶¬‚³‚ê‚Ä‚¢‚½‚çA•`‰æ‚ğs‚¤
+	
+
+	//ï¿½oï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½`ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½
 	if (barrier != nullptr)
 	{
 		barrier->Draw(this->location);
 	}
+
 
 	if (player_stun == 1)
 	{
@@ -147,104 +149,104 @@ void Player::Draw()
 	}
 }
 
-//I—¹ˆ—
+//ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void Player::Finalize()
 {
-	//“Ç‚İ‚ñ‚¾‰æ‘œ‚ğíœ
+	//ï¿½Ç‚İï¿½ï¿½ñ‚¾‰æ‘œï¿½ï¿½ï¿½íœ
 	DeleteGraph(image);
 
-	//ƒoƒŠƒA‚ª¶¬‚³‚ê‚Ä‚¢‚½‚çAíœ‚·‚é
+	//ï¿½oï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½íœï¿½ï¿½ï¿½ï¿½
 	if (barrier != nullptr)
 	{
 		delete barrier;
 	}
 }
 
-//ó‘Ôİ’èˆ—
+//ï¿½ï¿½Ôİ’èˆï¿½ï¿½
 void Player::SetActive(bool flg)
 {
 	this->is_active = flg;
 }
 
-//‘Ì—ÍŒ¸­ˆ—
+//ï¿½Ì—ÍŒï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void Player::DecreaseHp(float value)
 {
 	this->hp += value;
 }
 
-//ˆÊ’uî•ñæ“¾ˆ—
+//ï¿½Ê’uï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
 Vector2D Player::GetLocation() const
 {
 	return this->location;
 }
 
-//“–‚½‚è”»’è‚Ì‘å‚«‚³æ“¾ˆ—
+//ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½Ì‘å‚«ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
 Vector2D Player::GetBoxSize() const
 {
 	return this->box_size;
 }
 
-//‘¬‚³æ“¾ˆ—
+//ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
 float Player::GetSpeed() const
 {
 	return this->speed;
 }
 
-//”R—¿æ“¾ˆ—
+//ï¿½Rï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
 //float Player::GetFuel() const
 //{
 //	return this->fuel;
 //}
 
-//‘Ì—Íæ“¾ˆ—
+//ï¿½Ì—Íæ“¾ï¿½ï¿½ï¿½ï¿½
 float Player::GetHp() const
 {
 	return this->hp;
 }
 
-//ƒoƒŠƒA–‡”æ“¾ˆ—
+//ï¿½oï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½
 int Player::GetBarriarCount() const
 {
 	return this->barrier_count;
 }
 
-//ƒoƒŠƒA—LŒø‚©H‚ğæ“¾
+//ï¿½oï¿½ï¿½ï¿½Aï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Hï¿½ï¿½ï¿½æ“¾
 bool Player::IsBarrier() const
 {
 	return (barrier != nullptr);
 }
 
-//ˆÚ“®ˆ—
+//ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½
 void Player::Movement()
 {
 	Vector2D move = Vector2D(0.0f);
 	angle = 0.0f;
 
-	//\šˆÚ“®ˆ—
+	//ï¿½\ï¿½ï¿½ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_LEFT))
 	{
 		player_direction = 0;
-		move += Vector2D(-2.5f, 0.0f);
+		move += Vector2D(-2.0f, 0.0f);
 		angle = -DX_PI_F / 18;
 	}
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_RIGHT))
 	{
 		player_direction = 1;
-		move += Vector2D(2.5f, 0.0f);
+		move += Vector2D(2.0f, 0.0f);
 		angle = DX_PI_F / 18;
 	}
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_UP))
 	{
-		move += Vector2D(0.0f, -1.0f);
+		move += Vector2D(0.0f, -2.0f);
 	}
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_DOWN))
 	{
-		move += Vector2D(0.0f, 1.0f);
+		move += Vector2D(0.0f, 2.0f);
 	}
 
 	location += move;
 
-	//‰æ–ÊŠO‚És‚©‚È‚¢‚æ‚¤‚É§ŒÀ‚·‚é
+	//ï¿½ï¿½ÊŠOï¿½Ésï¿½ï¿½ï¿½È‚ï¿½ï¿½æ‚¤ï¿½Éï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if ((location.x < box_size.x) || (location.x >= 640.0f - 180.0f) ||
 		(location.y < box_size.y) || (location.y >= 480.0f - box_size.y))
 	{
@@ -253,7 +255,7 @@ void Player::Movement()
 
 }
 
-//UŒ‚”»’èˆ—
+//ï¿½Uï¿½ï¿½ï¿½ï¿½ï¿½èˆï¿½ï¿½
 void Player::DrawHand()
 {
 	hand_image = true;	
@@ -264,16 +266,16 @@ void Player::AttackEnd()
 //	hand_image = false;
 }
 
-////‰ÁŒ¸‘¬ˆ—
+////ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //void Player::Acceleration()
 //{
-//	//LBƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çAŒ¸‘¬‚·‚é
+//	//LBï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //	if (InputControl::GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER) && speed > 1.0f)
 //	{
 //		speed -= 1.0f;
 //	}
 //
-//	//RBƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çA‰Á‘¬‚·‚é
+//	//RBï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //	if (InputControl::GetButtonDown(XINPUT_BUTTON_RIGHT_SHOULDER) && speed < 10.0f)
 //	{
 //		speed += 1.0f;
