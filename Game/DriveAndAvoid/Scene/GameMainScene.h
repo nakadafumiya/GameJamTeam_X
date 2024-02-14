@@ -18,7 +18,7 @@ private:
 	int SE[2];				//サウンドエフェクト
 
 	float hit;
-	int Itemcount;			//アイテム取得時カウント
+	
 	Player* player;			//プレイヤー
 	Enemy** enemy;			//敵
 
