@@ -16,9 +16,16 @@ private:
 	int enemy_count[3];		//通り過ぎた敵カウント
 	int Itemcount;			//アイテム取得時カウント
 	int SE[2];				//サウンドエフェクト
+
 	Player* player;			//プレイヤー
 	Enemy** enemy;			//敵
 
+
+	int Itemcount;			//アイテム取得時カウント
+	Player* player;			//プレイヤー
+	Enemy** enemy;			//敵
+
+	int MainBGM;       // BGM
 
 public:
 	GameMainScene();
