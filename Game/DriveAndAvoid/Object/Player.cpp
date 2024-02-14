@@ -290,9 +290,15 @@ void Player::Movement()
 }
 
 //攻撃判定処理
-void Player::DrawHand()
+void Player::Attack()
 {
-	hand_image = true;	
+	cathand_image = true;
+	bakuhatsu_image = true;
+
+	if (barrier_count < 3)
+	{
+		this->barrier_count++;
+	}
 }
 
 void Player::AttackEnd()
