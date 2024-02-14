@@ -16,7 +16,7 @@
 
 
 GameMainScene::GameMainScene() : high_score(0), back_ground(NULL),
-barrier_image(NULL),
+barrier_image(NULL),MainBGM(0),
 									mileage(0),player(nullptr),
 enemy(nullptr), Itemcount(0)
 {
@@ -25,6 +25,9 @@ enemy(nullptr), Itemcount(0)
 		enemy_image[i] = NULL;
 		enemy_count[i] = NULL;
 	}
+	MainBGM = LoadSoundMem("Resource/music/CatRun.mp3");
+	SE[0] = LoadSoundMem("Resource/music/catSE1.mp3");
+	SE[1] = LoadSoundMem("Resource/music/catSE3.mp3");
 }
 
 GameMainScene::~GameMainScene()
@@ -60,6 +63,10 @@ void GameMainScene::Initialize()
 	{
 		throw ("Resource/images/barrier.png������܂���\n");
 	}
+	if (MainBGM == -1)
+	{
+		throw("Resource / music / CatRun.mp3が読み込まれませんでした\n");
+	}
 
 	//�I�u�W�F�N�g�̐���
 	player = new Player;
@@ -72,12 +79,19 @@ void GameMainScene::Initialize()
 	{
 		enemy[i] = nullptr;
 	}
+
+	// BGMの再生
+	ChangeVolumeSoundMem(80,MainBGM);
+	ChangeVolumeSoundMem(100, SE[0]);
+	ChangeVolumeSoundMem(100, SE[1]);
+	PlaySoundMem(MainBGM, DX_PLAYTYPE_LOOP, TRUE);
 				
 }
 
 //�X�V����
 eSceneType GameMainScene::Update()
 {
+
 	//�v���C���[�̍X�V
 	player->Update();
 
@@ -133,6 +147,7 @@ eSceneType GameMainScene::Update()
 			if (IsHitCheck(player, enemy[i]) && enemy[i]->GetType() == 0)
 			{
 				++Itemcount;
+				PlaySoundMem(SE[0], DX_PLAYTYPE_BACK, TRUE);
 				player->DecreaseHp(+50.0f);
 				if (player->GetHp() > 1000) 
 				{
@@ -148,6 +163,10 @@ eSceneType GameMainScene::Update()
 			{
 				player->SetActive(false);
 				player->DecreaseHp(-334.0f);
+				if (player->GetHp() > 0)
+				{
+					PlaySoundMem(SE[1], DX_PLAYTYPE_BACK, TRUE);
+				}
 				enemy[i]->Finalize();
 				delete enemy[i];
 				enemy[i] = nullptr;
@@ -174,6 +193,7 @@ eSceneType GameMainScene::Update()
 	//�v���C���[�̔R�����̗͂�0�����Ȃ�A���U���g�ɑJ�ڂ���
 	if (player->GetHp() < 0.0f)
 	{
+		DeleteSoundMem(MainBGM);
 		return eSceneType::E_RESULT;
 	}
 

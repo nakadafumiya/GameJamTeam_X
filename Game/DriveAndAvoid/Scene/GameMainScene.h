@@ -18,6 +18,7 @@ private:
 	Player* player;			//ƒvƒŒƒCƒ„[
 	Enemy** enemy;			//“G
 
+	int MainBGM;       // BGM
 public:
 	GameMainScene();
 	virtual ~GameMainScene();
