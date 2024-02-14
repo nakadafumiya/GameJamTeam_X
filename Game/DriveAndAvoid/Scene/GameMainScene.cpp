@@ -147,7 +147,7 @@ eSceneType GameMainScene::Update()
 			if (IsHitCheck(player, enemy[i]) && enemy[i]->GetType() == 1)
 			{
 				player->SetActive(false);
-				player->DecreaseHp(-20.0f);
+				player->DecreaseHp(-334.0f);
 				enemy[i]->Finalize();
 				delete enemy[i];
 				enemy[i] = nullptr;
