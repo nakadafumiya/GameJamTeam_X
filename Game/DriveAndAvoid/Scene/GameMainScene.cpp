@@ -16,15 +16,18 @@
 
 
 GameMainScene::GameMainScene() : high_score(0), back_ground(NULL),
-barrier_image(NULL),
+barrier_image(NULL),MainBGM(0),
 									mileage(0),player(nullptr),
-enemy(nullptr)
+enemy(nullptr), Itemcount(0)
 {
 	for (int i = 0; i < 3; i++)
 	{
 		enemy_image[i] = NULL;
 		enemy_count[i] = NULL;
 	}
+	MainBGM = LoadSoundMem("Resource/music/CatRun.mp3");
+	SE[0] = LoadSoundMem("Resource/music/catSE1.mp3");
+	SE[1] = LoadSoundMem("Resource/music/catSE3_2.mp3");
 }
 
 GameMainScene::~GameMainScene()
@@ -60,6 +63,10 @@ void GameMainScene::Initialize()
 	{
 		throw ("Resource/images/barrier.png������܂���\n");
 	}
+	if (MainBGM == -1)
+	{
+		throw("Resource / music / CatRun.mp3が読み込まれませんでした\n");
+	}
 
 	//�I�u�W�F�N�g�̐���
 	player = new Player;
@@ -72,12 +79,19 @@ void GameMainScene::Initialize()
 	{
 		enemy[i] = nullptr;
 	}
+
+	// BGMの再生
+	ChangeVolumeSoundMem(80,MainBGM);
+	ChangeVolumeSoundMem(100, SE[0]);
+	ChangeVolumeSoundMem(100, SE[1]);
+	PlaySoundMem(MainBGM, DX_PLAYTYPE_LOOP, TRUE);
 				
 }
 
 //�X�V����
 eSceneType GameMainScene::Update()
 {
+
 	//�v���C���[�̍X�V
 	player->Update();
 
@@ -94,7 +108,7 @@ eSceneType GameMainScene::Update()
 				int type = GetRand(20) % 20;
 				if (type <= 10)
 				{
-					type = 2;
+					type = 1;
 				}
 				else if (type > 10 && type <= 15) 
 				{
@@ -129,19 +143,30 @@ eSceneType GameMainScene::Update()
 			}
 
 			//�����蔻��̊m�F
+			
 			if (IsHitCheck(player, enemy[i]) && enemy[i]->GetType() == 0)
 			{
+				++Itemcount;
+				PlaySoundMem(SE[0], DX_PLAYTYPE_BACK, TRUE);
 				player->DecreaseHp(+50.0f);
+				if (player->GetHp() > 1000) 
+				{
+					float pHp = player->GetHp();
+					player->DecreaseHp(-(pHp - 1000));
+				}
 				enemy[i]->Finalize();
 				delete enemy[i];
 				enemy[i] = nullptr;
 			}
+
 			if (IsHitCheck(player, enemy[i]) && enemy[i]->GetType() == 1)
 			{
-
-
 				player->SetActive(false);
 				player->DecreaseHp(-334.0f);
+				if (player->GetHp() > 0.1f)
+				{
+					PlaySoundMem(SE[1], DX_PLAYTYPE_BACK, TRUE);
+				}
 				enemy[i]->Finalize();
 				delete enemy[i];
 				enemy[i] = nullptr;
@@ -178,6 +203,7 @@ eSceneType GameMainScene::Update()
 	//�v���C���[�̔R�����̗͂�0�����Ȃ�A���U���g�ɑJ�ڂ���
 	if (player->GetHp() < 0.0f)
 	{
+		DeleteSoundMem(MainBGM);
 		return eSceneType::E_RESULT;
 	}
 
@@ -217,6 +243,7 @@ void GameMainScene::Draw() const
 		DrawFormatString(510 + (i * 50), 140, GetColor(255, 255, 255), "%03d",
 			enemy_count[i]);
 	}*/
+
 	DrawFormatString(510, 70, GetColor(0, 0, 0), "���s����");
 	DrawFormatString(555, 90, GetColor(255, 255, 255), "%08d", mileage / 10);
 	/*DrawFormatString(510, 240, GetColor(0, 0, 0), "�X�s�[�h");
@@ -238,10 +265,17 @@ void GameMainScene::Draw() const
 		40.0f, GetColor(0, 102, 204), TRUE);
 	DrawBoxAA(fx, fy + 20.0f, fx + 100.0f, fy + 40.0f, GetColor(0, 0, 0),
 		FALSE);*/
+
+		//Itemの取得した数
+	DrawFormatString(510, 190, GetColor(0, 0, 0), "GETしたアイテム数");
+	DrawRotaGraph(530, 230, 0.7f, 0, enemy_image[0], TRUE, FALSE);
+	SetFontSize(25);
+	DrawFormatString(550, 213, GetColor(0, 0, 0), "= %d", Itemcount);
 	
 	//�̗̓Q�[�W�̕`��
 	float fx = 510.0f;
 	float fy = 430.0f;
+	SetFontSize(16);
 	DrawFormatStringF(fx, fy, GetColor(0, 0, 0), "PLAYER HP");
 	DrawBoxAA(fx, fy + 20.0f, fx + (player->GetHp() * 100 / 1000), fy +
 		40.0f,GetColor(255, 0, 0), TRUE);
