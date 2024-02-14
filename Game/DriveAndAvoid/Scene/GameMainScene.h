@@ -15,6 +15,8 @@ private:
 	int enemy_count[3];		//通り過ぎた敵カウント
 	int SE[2];				//サウンドエフェクト
 
+	float hit;
+
 	Player* player;			//プレイヤー
 	Enemy** enemy;			//敵
 

@@ -12,7 +12,9 @@ barrier(nullptr)
 	image_right1 = LoadGraph("Resource/images/catrun_right1.png");
 	image_right2 = LoadGraph("Resource/images/catrun_right2.png");
 	image_stun = LoadGraph("Resource/images/catstun.png");
-	image_cat_hand = LoadGraph("Resource/images/cat_hand.png");
+	image_bakuhatsu = LoadGraph("Resource/images/bakuhatsu.png");
+	image_cathand = LoadGraph("Resource/images/cathand2.png");
+
 }
 
 Player::~Player()
@@ -101,6 +103,7 @@ void Player::Update()
 			barrier = nullptr;
 		}
 	}
+
 }
 
 //描画処理
@@ -138,13 +141,44 @@ void Player::Draw()
 		image = image_right2;
 	}
 
-	if(hand_image == true)
-	{
-
-		DrawRotaGraph(location.x, location.y, 1.0, angle, image_cat_hand, TRUE);
-
-		hand_image = false;
+	//爆発エフェクトの表示時間設定
+	if(bakuhatsu_image == true)
+	{		
+		catbakuhatsu++;
+		if (catbakuhatsu > 5 && catbakuhatsu < 30)
+		{
+			DrawRotaGraph(location.x, location.y - 60, 0.8, angle, image_bakuhatsu, TRUE);
+		}
+		else if (catbakuhatsu > 30)
+		{
+			catbakuhatsu = 0;
+			bakuhatsu_image = false;
+		}
+		
 	}
+
+	//猫の手のエフェクト時間設定
+	if (cathand_image == true)
+	{
+		cathand_count++;
+		cathand_move++;
+		if (cathand_count < 5)
+		{
+			DrawRotaGraph((location.x - 100) + (cathand_move * 6), (location.y + 70) - (cathand_move * 6) , 1, 1, image_cathand, TRUE);
+		}
+		else if(cathand_count >=5 && cathand_count <= 10)
+		{
+			DrawRotaGraph(location.x - 50, location.y, 1, 1, image_cathand, TRUE);
+		}
+		else
+		{
+			cathand_count = 0;
+			cathand_move = 0;
+			cathand_image = false;
+		}
+
+	}
+
 }
 
 //終了時処理
@@ -256,7 +290,10 @@ void Player::Movement()
 //攻撃判定処理
 void Player::Attack()
 {
-	hand_image = true;	
+	
+	bakuhatsu_image = true;
+
+	cathand_image = true;
 	
 	if (barrier_count < 3)
 	{

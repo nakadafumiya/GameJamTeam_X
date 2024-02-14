@@ -94,7 +94,7 @@ eSceneType GameMainScene::Update()
 				int type = GetRand(20) % 20;
 				if (type <= 10)
 				{
-					type = 1;
+					type = 2;
 				}
 				else if (type > 10 && type <= 15) 
 				{
@@ -146,8 +146,9 @@ eSceneType GameMainScene::Update()
 				delete enemy[i];
 				enemy[i] = nullptr;
 			}
-			if (IsHitCheck(player, enemy[i]) && enemy[i]->GetType() == 2)
+			if (IsHitCheck(player, enemy[i]) && enemy[i]->GetType() == 2 && hit > 31)
 			{
+
 				if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
 				{
 					player->Attack();
@@ -159,8 +160,16 @@ eSceneType GameMainScene::Update()
 
 				}
 
-				player->AttackEnd();
+				//player->AttackEnd();
 
+			}
+			else if(IsHitCheck(player, enemy[i]) && enemy[i]->GetType() == 2 && hit < 31)
+			{
+				player->SetActive(false);
+				player->DecreaseHp(-334.0f);
+				enemy[i]->Finalize();
+				delete enemy[i];
+				enemy[i] = nullptr;
 			}
 		}
 
@@ -325,6 +334,8 @@ bool GameMainScene::IsHitCheck(Player* p, Enemy* e)
 
 	//�ʒu���̍������擾
 	Vector2D diff_location = p->GetLocation() - e->GetLocation();
+
+	hit = diff_location.y;
 
 	//�����蔻��T�C�Y�̑傫�����擾
 	Vector2D box_ex = p->GetBoxSize() + e->GetBoxSize();

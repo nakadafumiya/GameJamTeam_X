@@ -12,8 +12,16 @@ private:
 	int image_right2;
 	int image_stun;
 
-	int image_cat_hand; //攻撃判定テスト用
-	int hand_image;
+	int image_cathand;		//猫の手の画像
+	int cathand_image;		//猫の手の画像を表示させるかどうか
+	int cathand_move;		//猫の手の移動処理
+
+	int image_bakuhatsu;	 //爆発エフェクト画像
+	int bakuhatsu_image;	//エフェクトを表示させるかどうか
+	int SetTime;
+
+	int catbakuhatsu;       //エフェクトを表示する時間
+	int cathand_count;		//猫の手を表示する時間
 
 	bool is_active;			//有効状態か？
 	int image;				//画像データ
