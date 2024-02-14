@@ -43,10 +43,11 @@ void GameMainScene::Initialize()
 
 	//�摜�̓ǂݍ���
 	back_ground = LoadGraph("Resource/images/back.bmp");
-	barrier_image = LoadGraph("Resource/images/barrier.png");
+	barrier_image = LoadGraph("Resource/images/cat_nikukyu.png");
 	int result = LoadDivGraph("Resource/images/items2.png", 3, 3, 1, 64, 64,
 		enemy_image);
-
+	Font[0] = LoadGraph("Resource/images/Font_rundistance.png");
+	Font[1] = LoadGraph("Resource/images/Font_highscore.png");
 	//SE�̓ǂݍ���
 //	SE[0] = LoadSoundMem("sounds/")
 
@@ -136,7 +137,6 @@ eSceneType GameMainScene::Update()
 			// ��ʊO�ɍs������A�G���폜���ăX�R�A���Z
 			if (enemy[i]->GetLocation().y >= 640.0f)
 			{
-				enemy_count[enemy[i]->GetType()]++;
 				enemy[i]->Finalize();
 				delete enemy[i];
 				enemy[i] = nullptr;
@@ -163,10 +163,6 @@ eSceneType GameMainScene::Update()
 			{
 				player->SetActive(false);
 				player->DecreaseHp(-334.0f);
-				if (player->GetHp() > 0.1f)
-				{
-					PlaySoundMem(SE[1], DX_PLAYTYPE_BACK, TRUE);
-				}
 				enemy[i]->Finalize();
 				delete enemy[i];
 				enemy[i] = nullptr;
@@ -210,6 +206,8 @@ eSceneType GameMainScene::Update()
 	return GetNowScene();
 }
 
+
+
 //�`�揈��
 void GameMainScene::Draw() const
 {
@@ -232,7 +230,8 @@ void GameMainScene::Draw() const
 	//UI�̕`��
 	DrawBox(500, 0, 640, 480, GetColor(0, 153, 0), TRUE);
 	SetFontSize(16);
-	DrawFormatString(510, 20, GetColor(0, 0, 0), "�n�C�X�R�A");
+	/*DrawFormatString(510, 20, GetColor(0, 0, 0), "�n�C�X�R�A");*/
+	DrawRotaGraph(575, 20, 0.15f, 0, Font[1], TRUE);
 	DrawFormatString(560, 40, GetColor(255, 255, 255), "%08d", high_score);
 	/*DrawFormatString(510, 80, GetColor(0, 0, 0), "��������");
 	for (int i = 0; i < 3; i++)
@@ -244,7 +243,8 @@ void GameMainScene::Draw() const
 			enemy_count[i]);
 	}*/
 
-	DrawFormatString(510, 70, GetColor(0, 0, 0), "���s����");
+	/*DrawFormatString(510, 70, GetColor(0, 0, 0), "���s����");*/
+	DrawRotaGraph(575, 70, 0.18f, 0, Font[0], TRUE);
 	DrawFormatString(555, 90, GetColor(255, 255, 255), "%08d", mileage / 10);
 	/*DrawFormatString(510, 240, GetColor(0, 0, 0), "�X�s�[�h");
 	DrawFormatString(555, 260, GetColor(255, 255, 255), "%08.1f",
@@ -253,7 +253,7 @@ void GameMainScene::Draw() const
 	//�o���A�̖����̕`��
 	for (int i = 0; i < player->GetBarriarCount(); i++)
 	{
-		DrawRotaGraph(520 + i * 25, 140, 0.2f, 0, barrier_image,
+		DrawRotaGraph(520 + i * 48, 140, 0.18f, 0, barrier_image,
 			TRUE, FALSE);
 	}
 
@@ -287,6 +287,7 @@ void GameMainScene::Draw() const
 //�I��������
 void GameMainScene::Finalize()
 {
+	
 	//�X�R�A���v�Z����
 	int score = (mileage / 10 * 10);
 	for (int i = 0; i < 3; i++)
@@ -378,3 +379,9 @@ bool GameMainScene::IsHitCheck(Player* p, Enemy* e)
 	return ((fabsf(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) <
 		box_ex.y));
 }
+
+//アイテム取得数処理
+//int GameMainScene::GetItemCount() const
+//{
+//	return Itemcount;
+//}
