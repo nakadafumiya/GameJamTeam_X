@@ -4,14 +4,15 @@
 
 Player::Player() : is_active(false), image(NULL), location(0.0f), box_size(0.0f),
 angle(0.0f),
-speed(0.0f), hp(0.0f),  barrier_count(0),player_direction(0),player_imagecount(0),
+speed(0.0f), hp(0.0f),  barrier_count(0),player_direction(0),player_imagecount(0),player_stun(0),
 barrier(nullptr)
 {
-	image_left1 = LoadGraph("Resource/images/catleft_1.png");
-	image_left2 = LoadGraph("Resource/images/catleft_2.png");
-	image_right1 = LoadGraph("Resource/images/catright_1.png");
-	image_right2 = LoadGraph("Resource/images/catright_2.png");
+	image_left1 = LoadGraph("Resource/images/catrun_left1.png");
+	image_left2 = LoadGraph("Resource/images/catrun_left2.png");
+	image_right1 = LoadGraph("Resource/images/catrun_right1.png");
+	image_right2 = LoadGraph("Resource/images/catrun_right2.png");
 	image_stun = LoadGraph("Resource/images/catstun.png");
+	image_cat_hand = LoadGraph("Resource/images/cat_hand.png");
 }
 
 Player::~Player()
@@ -27,13 +28,13 @@ void Player::Initialize()
 	location = Vector2D(320.0f, 380.0f);
 	box_size = Vector2D(31.0f, 60.0f);
 	angle = 0.0f;
-	speed = 3.0f;
+	speed = 6.0f;
 	hp = 1000;
 	/*fuel = 20000;*/
 	barrier_count = 3;
 
 	//画像の読み込み
-	image = LoadGraph("Resource/images/catleft_1.png");
+	image = LoadGraph("Resource/images/catrun_left1.png");
 
 	//エラーチェック
 	if (image == -1)
@@ -45,13 +46,22 @@ void Player::Initialize()
 //更新処理
 void Player::Update()
 {
+	// ゲーム中常に加算する
+	player_imagecount++;
+
+	if (player_imagecount > 60)
+	{
+		player_imagecount = 0;
+	}
 	//操作不可状態であれば、自身を回転させる
 	if (!is_active)
 	{
+		player_stun = 1;
 		angle += DX_PI_F / 24.0f;
 		speed = 1.0f;
 		if (angle >= DX_PI_F * 4.0f)
 		{
+			player_stun = 0;
 			is_active = true;
 		}
 		return;
@@ -105,27 +115,35 @@ void Player::Draw()
 		barrier->Draw(this->location);
 	}
 
-	if (!is_active)
+	if (player_stun == 1)
 	{
 		image = image_stun;
 	}
 
-	if (player_imagecount < 30 && player_direction == 0)
+	if (player_imagecount < 30 && player_direction == 0 && player_stun != 1)
 	{
 		image = image_left1;
 	}
-	else if (player_imagecount > 29 && player_direction == 0)
+	else if (player_imagecount > 29 && player_direction == 0 && player_stun != 1)
 	{
 		image = image_left2;
 	}
 
-	if (player_imagecount < 30 && player_direction == 1)
+	if (player_imagecount < 30 && player_direction == 1 && player_stun != 1)
 	{
 		image = image_right1;
 	}
-	else if (player_imagecount > 29 && player_direction == 1)
+	else if (player_imagecount > 29 && player_direction == 1 && player_stun != 1)
 	{
 		image = image_right2;
+	}
+
+	if(hand_image == true)
+	{
+
+		DrawRotaGraph(location.x, location.y, 1.0, angle, image_cat_hand, TRUE);
+
+		hand_image = false;
 	}
 }
 
@@ -206,13 +224,13 @@ void Player::Movement()
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_LEFT))
 	{
 		player_direction = 0;
-		move += Vector2D(-1.0f, 0.0f);
+		move += Vector2D(-2.5f, 0.0f);
 		angle = -DX_PI_F / 18;
 	}
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_RIGHT))
 	{
 		player_direction = 1;
-		move += Vector2D(1.0f, 0.0f);
+		move += Vector2D(2.5f, 0.0f);
 		angle = DX_PI_F / 18;
 	}
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_UP))
@@ -232,6 +250,18 @@ void Player::Movement()
 	{
 		location -= move;
 	}
+
+}
+
+//攻撃判定処理
+void Player::DrawHand()
+{
+	hand_image = true;	
+}
+
+void Player::AttackEnd()
+{
+//	hand_image = false;
 }
 
 ////加減速処理

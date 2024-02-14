@@ -11,6 +11,10 @@ private:
 	int image_right1;
 	int image_right2;
 	int image_stun;
+
+	int image_cat_hand; //攻撃判定テスト用
+	int hand_image;
+
 	bool is_active;			//有効状態か？
 	int image;				//画像データ
 	Vector2D location;		//位置座標
@@ -20,6 +24,7 @@ private:
 	float hp;				//体力
 	float player_imagecount;//フレームごとにプレイヤー画像を変更する
 	bool player_direction;  //プレイヤーの向き　0:左 1:右
+	bool player_stun;       // プレイヤーがスタンしているかどうか
 	//float fuel;					//燃料
 	int barrier_count;		//バリアの枚数
 	Barrier* barrier;		//バリア
@@ -43,6 +48,9 @@ public:
 	float GetHp() const;				//体力取得
 	int GetBarriarCount() const;	//バリアの枚数取得
 	bool IsBarrier() const;				//バリアが有効か？を取得
+
+	void DrawHand();						//攻撃判定処理
+	void AttackEnd();					//攻撃判定処理		
 
 private:
 	void Movement();					//移動処理
