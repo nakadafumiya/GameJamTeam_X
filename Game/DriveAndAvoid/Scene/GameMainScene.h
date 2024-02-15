@@ -11,10 +11,10 @@ private:
 	int back_ground;	//背景画像
 	int barrier_image;		//バリア画像
 	int mileage;			//走行距離
-	int Font[3];		//フォント画像
+	int Font[4];		//フォント画像
 	int enemy_image[3];		//敵画像
 	int enemy_count[3];		//通り過ぎた敵カウント
-	int Itemcount;			//アイテム取得時カウント
+	int Itemcount[2];			//アイテム取得時カウント
 	int SE[2];				//サウンドエフェクト
 
 	float hit;

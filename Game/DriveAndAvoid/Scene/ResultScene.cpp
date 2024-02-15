@@ -4,7 +4,7 @@
 #include "DxLib.h"
 
 
-ResultScene::ResultScene() : back_ground(NULL), score(0), itemcount_result(0)
+ResultScene::ResultScene() : back_ground(NULL), score(0), itemcount_result(0), mosecount_result(0)
 {
 	for (int i = 0; i < 3; i++)
 	{
@@ -34,9 +34,11 @@ void ResultScene::Initialize()
 	ResultFont[1] = LoadGraph("Resource/images/Font_gamescore.png");
 	ResultFont[2] = LoadGraph("Resource/images/Font_rundistance.png");
 	ResultFont[3] = LoadGraph("Resource/images/Font_Item.png");
+	ResultFont[4] = LoadGraph("Resource/images/Font_teki.png");
 	back_image = LoadGraph("Resource/images/BackImage.png");
 	
 	itemcount_result = 0;
+	mosecount_result = 0;
 
 	//ƒGƒ‰[ƒ`ƒFƒbƒN
 	if (back_ground == -1)
@@ -101,7 +103,7 @@ void ResultScene::Draw() const
 	SetFontSize(25);
 	//DrawString(180, 200, "‘–s‹——£@@@", GetColor(0, 0, 0));//<-
 	DrawRotaGraph(180, 150, 0.29f, 0, ResultFont[2], TRUE);
-	DrawFormatString(300, 140, GetColor(255, 255, 255), "%08d ~ ‚P‚O", score / 10 - itemcount_result * 150);
+	DrawFormatString(300, 140, GetColor(255, 255, 255), "%05d ~ ‚P‚O", score / 10 - itemcount_result * 150 - mosecount_result * 250);
 	/*for (int i = 0; i < 3; i++)*/
 	/*{
 		DrawRotaGraph(230, 230 + (i * 20), 0.5f, 0, enemy_image[i],
@@ -111,13 +113,16 @@ TRUE);
 	}*/
 
 	DrawRotaGraph(160, 218, 0.17f, 0, ResultFont[3], TRUE);
-	DrawRotaGraph(280, 220, 1.0f, 0, enemy_image[0],
-			TRUE);
+	DrawRotaGraph(280, 220, 1.0f, 0, enemy_image[0],TRUE);
+	DrawRotaGraph(280, 280, 1.0f, 0, enemy_image[2], TRUE);
 	/*SetFontSize(25);*/
 	DrawFormatString(270, 205, GetColor(255, 255, 255), "    = %d ~ ‚P‚T‚O", itemcount_result);
-	DrawRotaGraph(180, 320, 0.4f, 0, ResultFont[1], TRUE);
+	DrawFormatString(270, 265, GetColor(255, 255, 255), "    = %d ~ ‚Q‚T‚O", mosecount_result);
+	DrawRotaGraph(180, 280, 0.12f, 0, ResultFont[4], TRUE);
+	DrawRotaGraph(180, 360, 0.4f, 0, ResultFont[1], TRUE);
+
 	SetFontSize(30);
-	DrawFormatString(250, 310, 0xFFFFFF, "   = %6d", score);
+	DrawFormatString(250, 350, 0xFFFFFF, "  = %06d", score);
 
 	
 	/*DrawString(180, 290, "ƒXƒRƒA", GetColor(0, 0, 0));*/
@@ -157,6 +162,7 @@ void ResultScene::ReadResultData()
 	//Œ‹‰Ê‚ð“Ç‚Ýž‚Þ
 	fscanf_s(fp, "%6d,\n", &score);
 	fscanf_s(fp, "%6d,\n", &itemcount_result);
+	fscanf_s(fp, "%d,\n", &mosecount_result);
 	
 	//”ð‚¯‚½”‚Æ“¾“_‚ðŽæ“¾
 	for (int i = 0; i < 3; i++)

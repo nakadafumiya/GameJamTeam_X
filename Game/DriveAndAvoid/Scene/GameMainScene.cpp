@@ -18,13 +18,20 @@
 GameMainScene::GameMainScene() : high_score(0), back_ground(NULL),
 barrier_image(NULL),MainBGM(0),
 									mileage(0),player(nullptr),
-enemy(nullptr),Itemcount(0)
+enemy(nullptr)
 {
-	
+
 	for (int i = 0; i < 3; i++)
 	{
 		enemy_image[i] = NULL;
 		enemy_count[i] = NULL;
+	}
+	for (int i = 0; i < 2; i++)
+	{
+		Itemcount[i] = NULL;
+	}
+	for (int i = 0; i < 4; i++)
+	{
 		Font[i] = NULL;
 	}
 	MainBGM = LoadSoundMem("Resource/music/CatRun.mp3");
@@ -52,6 +59,8 @@ void GameMainScene::Initialize()
 	Font[0] = LoadGraph("Resource/images/Font_rundistance.png");
 	Font[1] = LoadGraph("Resource/images/Font_highscore.png");
 	Font[2] = LoadGraph("Resource/images/Font_Item.png");
+	Font[3] = LoadGraph("Resource/images/Font_teki.png");
+
 	//SE�̓ǂݍ���
 //	SE[0] = LoadSoundMem("sounds/")
 
@@ -150,7 +159,7 @@ eSceneType GameMainScene::Update()
 			
 			if (IsHitCheck(player, enemy[i]) && enemy[i]->GetType() == 0)
 			{
-				++Itemcount;
+				++Itemcount[0];
 				PlaySoundMem(SE[0], DX_PLAYTYPE_BACK, TRUE);
 				player->DecreaseHp(+50.0f);
 				if (player->GetHp() > 1000) 
@@ -176,6 +185,7 @@ eSceneType GameMainScene::Update()
 
 				if (InputControl::GetButtonDown(XINPUT_BUTTON_A))
 				{
+					++Itemcount[1];
 					player->Attack();
 
 					enemy[i]->Finalize();
@@ -274,8 +284,11 @@ void GameMainScene::Draw() const
 	/*DrawFormatString(510, 190, GetColor(0, 0, 0), "GETしたアイテム数");*/
 	DrawRotaGraph(570, 190, 0.14f, 0, Font[2], TRUE, FALSE);
 	DrawRotaGraph(530, 230, 0.7f, 0, enemy_image[0], TRUE, FALSE);
+	DrawRotaGraph(570, 280, 0.1f, 0, Font[3], TRUE, FALSE);
+	DrawRotaGraph(530, 330, 0.7f, 0, enemy_image[2], TRUE, FALSE);
 	SetFontSize(25);
-	DrawFormatString(550, 213, GetColor(0, 0, 0), "= %d", Itemcount);
+	DrawFormatString(550, 213, GetColor(255, 255, 255), "X%d", Itemcount[0]);
+	DrawFormatString(550, 317, GetColor(255, 255, 255), "X%d", Itemcount[1]);
 	
 	//�̗̓Q�[�W�̕`��
 	float fx = 510.0f;
@@ -294,8 +307,8 @@ void GameMainScene::Finalize()
 {
 	
 	//�X�R�A���v�Z����
-	int score = (mileage / 10 * 10 + 150 * Itemcount);
-	
+	int score = (mileage / 10 * 10 + 150 * Itemcount[0] + 250 * Itemcount[1]);
+
 		/*score += (i + 1) * 50 * enemy_count[i];*/
 		/*score += 150 * Itemcount;*/
 	
@@ -312,7 +325,8 @@ void GameMainScene::Finalize()
 
 	//�X�R�A��ۑ�
 	fprintf(fp, "%d,\n", score);
-	fprintf(fp, "%d,\n", Itemcount);
+	fprintf(fp, "%d,\n", Itemcount[0]);
+	fprintf(fp, "%d,\n", Itemcount[1]);
 
 	//���������Ɠ��_��ۑ�
 	for (int i = 0; i < 3; i++)
