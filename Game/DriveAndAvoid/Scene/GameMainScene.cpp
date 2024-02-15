@@ -37,9 +37,6 @@ enemy(nullptr)
 	MainBGM = LoadSoundMem("Resource/music/CatRun.mp3");
 	SE[0] = LoadSoundMem("Resource/music/catSE1.mp3");
 	SE[1] = LoadSoundMem("Resource/music/catSE3_2.mp3");
-
-
-
 	SE[2] = LoadSoundMem("Resource/music/catSE2.mp3");
 
 }

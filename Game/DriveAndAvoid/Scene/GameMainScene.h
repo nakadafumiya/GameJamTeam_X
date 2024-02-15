@@ -16,7 +16,7 @@ private:
 	int enemy_image[3];		//敵画像
 	int enemy_count[3];		//通り過ぎた敵カウント
 	int Itemcount[2];			//アイテム取得時カウント
-	int SE[2];				//サウンドエフェクト
+	int SE[3];				//サウンドエフェクト
 
 
 
