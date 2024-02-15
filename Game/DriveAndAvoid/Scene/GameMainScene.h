@@ -17,6 +17,10 @@ private:
 	int enemy_count[3];		//通り過ぎた敵カウント
 	int Itemcount[2];			//アイテム取得時カウント
 	int SE[3];				//サウンドエフェクト
+	int Punch_SE[2];		//punchサウンド
+
+	int RandomSE;
+
 
 
 

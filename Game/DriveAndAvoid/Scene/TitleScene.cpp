@@ -39,9 +39,10 @@ void TitleScene::Initialize()
 		throw ("Resource/images/nikukyuu.png‚ª‚ ‚è‚Ü‚¹‚ñ\n");
 	}
 
-	ChangeVolumeSoundMem(100, button_SE[0]);
-	ChangeVolumeSoundMem(100, button_SE[1]);
-	ChangeVolumeSoundMem(100, button_SE[2]);
+	ChangeVolumeSoundMem(150, button_SE[0]);
+	ChangeVolumeSoundMem(150, button_SE[1]);
+	ChangeVolumeSoundMem(150, button_SE[2]);
+	ChangeVolumeSoundMem(130, title_BGM);
 	PlaySoundMem(title_BGM, DX_PLAYTYPE_LOOP, TRUE);
 }
 

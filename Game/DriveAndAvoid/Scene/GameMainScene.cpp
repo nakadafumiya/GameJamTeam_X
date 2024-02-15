@@ -39,6 +39,9 @@ enemy(nullptr)
 	SE[1] = LoadSoundMem("Resource/music/catSE3_2.mp3");
 	SE[2] = LoadSoundMem("Resource/music/catSE2.mp3");
 
+	Punch_SE[0] = LoadSoundMem("Resource/SE/punch.mp3");
+	Punch_SE[1] = LoadSoundMem("Resource/SE/punch2.mp3");
+
 }
 
 GameMainScene::~GameMainScene()
@@ -61,9 +64,6 @@ void GameMainScene::Initialize()
 	Font[1] = LoadGraph("Resource/images/Font_highscore.png");
 	Font[2] = LoadGraph("Resource/images/Font_Item.png");
 	Font[3] = LoadGraph("Resource/images/Font_teki.png");
-
-	//SE�̓ǂݍ���
-//	SE[0] = LoadSoundMem("sounds/")
 
 	//�G���[�`�F�b�N
 	if (back_ground == -1)
@@ -99,6 +99,10 @@ void GameMainScene::Initialize()
 	ChangeVolumeSoundMem(200,MainBGM);
 	ChangeVolumeSoundMem(200, SE[0]);
 	ChangeVolumeSoundMem(200, SE[1]);
+
+	ChangeVolumeSoundMem(250, Punch_SE[0]);
+	ChangeVolumeSoundMem(250, Punch_SE[1]);
+
 	PlaySoundMem(MainBGM, DX_PLAYTYPE_LOOP, TRUE);
 				
 }
@@ -123,7 +127,7 @@ eSceneType GameMainScene::Update()
 				int type = GetRand(20) % 20;
 				if (type <= 10)
 				{
-					type = 1;
+					type = 2;
 				}
 				else if (type > 10 && type <= 15) 
 				{
@@ -192,6 +196,10 @@ eSceneType GameMainScene::Update()
 				{
 					++Itemcount[1];
 					player->Attack();
+
+					RandomSE = GetRand(1) % 1;
+
+					PlaySoundMem(Punch_SE[RandomSE], TRUE);
 
 					enemy[i]->Finalize();
 					delete enemy[i];

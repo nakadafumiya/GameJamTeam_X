@@ -26,9 +26,9 @@ void RankingInputScene::Initialize()
 	button_SE[1] = LoadSoundMem("Resource/SE/button_2.mp3");
 	button_SE[2] = LoadSoundMem("Resource/SE/button_3.mp3");		//決定音
 
-	ChangeVolumeSoundMem(100, button_SE[0]);
-	ChangeVolumeSoundMem(100, button_SE[1]);
-	ChangeVolumeSoundMem(100, button_SE[2]);
+	ChangeVolumeSoundMem(130, button_SE[0]);
+	ChangeVolumeSoundMem(130, button_SE[1]);
+	ChangeVolumeSoundMem(130, button_SE[2]);
 
 	//エラーチェック
 	if (background_image == -1)
