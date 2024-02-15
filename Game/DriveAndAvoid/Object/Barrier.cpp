@@ -5,12 +5,12 @@ Barrier::Barrier() : image(NULL), life_span(1000)
 {
 
 	//画像の読み込み
-	image = LoadGraph("Resource/images/barrier.png");
+	image = LoadGraph("Resource/images/cat_nikukyu.png");
 
 	//エラーチェック
 	if (image == -1)
 	{
-		throw("Resource/images/barrier.pngがありません\n");
+		throw("Resource/images/cat_nikukyu.pngがありません\n");
 	}
 
 }
@@ -24,7 +24,7 @@ Barrier::~Barrier()
 //描画処理
 void Barrier::Draw(const Vector2D& location)
 {
-	DrawRotaGraphF(location.x, location.y, 1.0, 0.0, image, TRUE);
+	DrawRotaGraphF(location.x - 10.0f, location.y, 1.0, 0.0, image, TRUE);
 }
 
 //寿命が尽きたか？

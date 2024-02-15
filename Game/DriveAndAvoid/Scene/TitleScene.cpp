@@ -18,22 +18,21 @@ void TitleScene::Initialize()
 {
 	//画像の読み込み
 	background_image = LoadGraph("Resource/images/Title.png");
-	menu_image = LoadGraph("Resource/images/menu.bmp");
-	cursor_image = LoadGraph("Resource/images/cone.bmp");
-	
+	menu_image = LoadGraph("Resource/images/TitleFont.png");
+	cursor_image = LoadGraph("Resource/images/nikukyuu.png");
 
 	//エラーチェック
 	if (background_image == -1)
 	{
-		throw ("Resource/images/Title.bmpがありません\n");
+		throw ("Resource/images/Title.pngがありません\n");
 	}
 	if (menu_image == -1)
 	{
-		throw ("Resource/images/menu.bmpがありません\n");
+		throw ("Resource/images/TitleFont.pngがありません\n");
 	}
 	if (cursor_image == -1)
 	{
-		throw ("Resource/images/cone.bmpがありません\n");
+		throw ("Resource/images/nikukyuu.pngがありません\n");
 	}
 }
 
@@ -89,14 +88,11 @@ void TitleScene::Draw() const
 	//タイトル画像の描画
 	DrawGraph(0, 0, background_image, FALSE);
 
-	//HappyCtの再生
-	//PlayMovie("Happycat.mp4", 1, DX_MOVIEPLAYTYPE_NORMAL);
-
 	//メニュ－画像の描画
-	DrawGraph(120, 200, menu_image, TRUE);
+	DrawGraph(200, 200, menu_image, TRUE);
 
 	//カーソル画像の描画
-	DrawRotaGraph(90, 220 + menu_cursor * 40, 0.7, DX_PI / 2.0, cursor_image,
+	DrawRotaGraph(180, 220 + menu_cursor * 40, 0.7, DX_PI / 2.0, cursor_image,
 		TRUE);
 }
 
