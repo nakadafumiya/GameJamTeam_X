@@ -11,6 +11,8 @@ private:
 	int background_image;	//”wŒi‰æ‘œ
 	RankingData* ranking;	//ƒ‰ƒ“ƒLƒ“ƒOî•ñ
 
+	int button_SE[1];
+
 public:
 	RankingDispScene();
 	virtual ~RankingDispScene();

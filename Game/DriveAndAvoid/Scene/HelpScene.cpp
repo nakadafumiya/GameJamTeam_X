@@ -25,6 +25,9 @@ void HelpScene::Initialize()
 	Help_HP2= LoadGraph("Resource/images/Help_HP2.png");
 	Help_Item = LoadGraph("Resource/images/Help_Item.png");
 
+	button_SE[0] = LoadSoundMem("Resource/SE/button_2.mp3");
+	ChangeVolumeSoundMem(100, button_SE[0]);
+
 	//�G���[�`�F�b�N
 	if (background_image == -1)
 	{
@@ -39,6 +42,7 @@ eSceneType HelpScene::Update()
 	//B�{�^���������ꂽ��A�^�C�g���ɖ߂�
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
+		PlaySoundMem(button_SE[0], TRUE);
 		return eSceneType::E_TITLE;
 	}
 

@@ -13,6 +13,8 @@ private:
 	int Help_HP2;//説明用HP
 	int Help_Item;//説明用アイテム
 
+	int button_SE[1];
+
 public:
 	HelpScene();
 	virtual ~HelpScene();

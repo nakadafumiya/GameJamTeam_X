@@ -48,8 +48,6 @@ void GameMainScene::Initialize()
 		enemy_image);
 	Font[0] = LoadGraph("Resource/images/Font_rundistance.png");
 	Font[1] = LoadGraph("Resource/images/Font_highscore.png");
-	//SE�̓ǂݍ���
-//	SE[0] = LoadSoundMem("sounds/")
 
 	//�G���[�`�F�b�N
 	if (back_ground == -1)

@@ -20,6 +20,9 @@ void TitleScene::Initialize()
 	background_image = LoadGraph("Resource/images/Title.png");
 	menu_image = LoadGraph("Resource/images/TitleFont.png");
 	cursor_image = LoadGraph("Resource/images/nikukyuu.png");
+	button_SE[0] = LoadSoundMem("Resource/SE/button.mp3");
+	button_SE[1] = LoadSoundMem("Resource/SE/button_2.mp3");
+	button_SE[2] = LoadSoundMem("Resource/SE/button_3.mp3");
 
 	//エラーチェック
 	if (background_image == -1)
@@ -34,6 +37,10 @@ void TitleScene::Initialize()
 	{
 		throw ("Resource/images/nikukyuu.pngがありません\n");
 	}
+
+	ChangeVolumeSoundMem(100, button_SE[0]);
+	ChangeVolumeSoundMem(100, button_SE[1]);
+	ChangeVolumeSoundMem(100, button_SE[2]);
 }
 
 //更新処理
@@ -42,7 +49,10 @@ eSceneType TitleScene::Update()
 	//カーソル下移動
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_DPAD_DOWN))
 	{
+
 		menu_cursor++;
+		PlaySoundMem(button_SE[0], TRUE);
+
 		//一番下に到達したら、一番上にする
 		if (menu_cursor > 3)
 		{
@@ -54,6 +64,8 @@ eSceneType TitleScene::Update()
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_DPAD_UP))
 	{
 		menu_cursor--;
+		PlaySoundMem(button_SE[0], TRUE);
+
 		//一番上に到達したら、一番下にする
 		if (menu_cursor < 0)
 		{
@@ -67,12 +79,16 @@ eSceneType TitleScene::Update()
 		switch (menu_cursor)
 		{
 		case 0:
+			PlaySoundMem(button_SE[2], TRUE);
 			return eSceneType::E_MAIN;
 		case 1:
+			PlaySoundMem(button_SE[2], TRUE);
 			return eSceneType::E_RANKING_DISP;
 		case 2:
+			PlaySoundMem(button_SE[2], TRUE);
 			return eSceneType::E_HELP;
 		default:
+			PlaySoundMem(button_SE[2], TRUE);
 			return eSceneType::E_END;
 
 		}

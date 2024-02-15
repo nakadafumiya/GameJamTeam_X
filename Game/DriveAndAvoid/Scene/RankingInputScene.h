@@ -13,6 +13,7 @@ private:
 	int name_num;				//名前入力数
 	int cursor_x;				//カーソルＸ座標
 	int cursor_y;				//カーソルＹ座標
+	int button_SE[3];			//ボタンSE
 
 public:
 	RankingInputScene();

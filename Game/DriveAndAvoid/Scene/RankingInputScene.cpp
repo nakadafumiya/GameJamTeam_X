@@ -22,6 +22,14 @@ void RankingInputScene::Initialize()
 	//画像の読み込み
 	background_image = LoadGraph("Resource/images/Ranking.bmp");
 
+	button_SE[0] = LoadSoundMem("Resource/SE/button.mp3");			//選択音
+	button_SE[1] = LoadSoundMem("Resource/SE/button_2.mp3");
+	button_SE[2] = LoadSoundMem("Resource/SE/button_3.mp3");		//決定音
+
+	ChangeVolumeSoundMem(100, button_SE[0]);
+	ChangeVolumeSoundMem(100, button_SE[1]);
+	ChangeVolumeSoundMem(100, button_SE[2]);
+
 	//エラーチェック
 	if (background_image == -1)
 	{
@@ -154,6 +162,9 @@ bool RankingInputScene::InputName()
 		{
 			cursor_x = 0;
 		}
+
+		PlaySoundMem(button_SE[0], TRUE);
+
 	}
 	
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_DPAD_RIGHT))
@@ -172,6 +183,9 @@ bool RankingInputScene::InputName()
 			cursor_x = 1;
 		}
 
+		PlaySoundMem(button_SE[0], TRUE);
+
+
 	}
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_DPAD_UP))
 	{
@@ -179,6 +193,9 @@ bool RankingInputScene::InputName()
 		{
 			cursor_y--;
 		}
+
+		PlaySoundMem(button_SE[0], TRUE);
+
 	}
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_DPAD_DOWN))
 	{
@@ -190,6 +207,9 @@ bool RankingInputScene::InputName()
 					cursor_x = 0;				
 			}
 		}
+
+		PlaySoundMem(button_SE[0], TRUE);
+
 	}
 	
 	//カーソル位置の文字を決定する
@@ -203,6 +223,9 @@ bool RankingInputScene::InputName()
 				cursor_x = 0;
 				cursor_y = 4;
 			}
+
+			PlaySoundMem(button_SE[2], TRUE);
+
 		}
 		else if (cursor_y < 4)
 		{
@@ -212,12 +235,16 @@ bool RankingInputScene::InputName()
 				cursor_x = 0;
 				cursor_y = 4;
 			}
+
+			PlaySoundMem(button_SE[2], TRUE);
+
 		}
 		else
 		{
 			if (cursor_x == 0)
 			{
 				name[name_num] = '\0';
+				PlaySoundMem(button_SE[1], TRUE);
 				return true;
 			}
 			else
@@ -226,10 +253,12 @@ bool RankingInputScene::InputName()
 				if(name_num != 0)
 				{
 					name[name_num--] = NULL;
+					PlaySoundMem(button_SE[1], TRUE);
 				}
 				else if (name_num == 0)
 				{
 					name[name_num] = NULL;
+					PlaySoundMem(button_SE[1], TRUE);
 				}
 
 			}

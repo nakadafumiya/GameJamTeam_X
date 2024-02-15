@@ -17,6 +17,8 @@ void RankingDispScene::Initialize()
 {
 	//画像の読み込み
 	background_image = LoadGraph("Resource/images/Ranking.bmp");
+	button_SE[0] = LoadSoundMem("Resource/SE/button_2.mp3");
+	ChangeVolumeSoundMem(100, button_SE[0]);
 
 	//エラーチェック
 	if (background_image == -1)
@@ -36,6 +38,7 @@ eSceneType RankingDispScene::Update()
 	//Bボタンが押されたあr、タイトルに戻る
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
+		PlaySoundMem(button_SE[0], TRUE);
 		return eSceneType::E_TITLE;
 	}
 
