@@ -7,20 +7,23 @@
 class GameMainScene : public SceneBase
 {
 private:
+
 	int high_score;			//ハイスコア
 	int back_ground;	//背景画像
 	int barrier_image;		//バリア画像
 	int mileage;			//走行距離
-	int Font[2];		//フォント画像
+	int Font[4];		//フォント画像
 	int enemy_image[3];		//敵画像
 	int enemy_count[3];		//通り過ぎた敵カウント
-	int Itemcount;			//アイテム取得時カウント
+	int Itemcount[2];			//アイテム取得時カウント
 	int SE[2];				//サウンドエフェクト
+
+
 
 	float hit;
 	
-	Player* player;			//プレイヤー
-	Enemy** enemy;			//敵
+	Player* player;			//・ｽv・ｽ・ｽ・ｽC・ｽ・ｽ・ｽ[
+	Enemy** enemy;			//・ｽG
 
 
 	
@@ -28,6 +31,9 @@ private:
 	int MainBGM;       // BGM
 
 public:
+	
+
+
 	GameMainScene();
 	virtual ~GameMainScene();
 
@@ -38,12 +44,12 @@ public:
 
 	virtual eSceneType GetNowScene() const override;
 
-	//アイテムを取得した数
+	//・ｽA・ｽC・ｽe・ｽ・ｽ・ｽ・ｽ・ｽ謫ｾ・ｽ・ｽ・ｽ・ｽ・ｽ・ｽ
 	/* int GetItemCount() const;*/
 private:
-	//ハイスコア読み込み処理
+	//・ｽn・ｽC・ｽX・ｽR・ｽA・ｽﾇみ搾ｿｽ・ｽﾝ擾ｿｽ・ｽ・ｽ
 	void ReadHighScore();
-	//当たり判定
+	//・ｽ・ｽ・ｽ・ｽ・ｽ阡ｻ・ｽ・ｽ
 	bool IsHitCheck(Player* p, Enemy* e);
 
 	

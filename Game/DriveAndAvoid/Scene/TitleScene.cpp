@@ -23,6 +23,7 @@ void TitleScene::Initialize()
 	button_SE[0] = LoadSoundMem("Resource/SE/button.mp3");
 	button_SE[1] = LoadSoundMem("Resource/SE/button_2.mp3");
 	button_SE[2] = LoadSoundMem("Resource/SE/button_3.mp3");
+	title_BGM = LoadSoundMem("Resource/music/Blue_Drops.mp3");
 
 	//エラーチェック
 	if (background_image == -1)
@@ -41,6 +42,7 @@ void TitleScene::Initialize()
 	ChangeVolumeSoundMem(100, button_SE[0]);
 	ChangeVolumeSoundMem(100, button_SE[1]);
 	ChangeVolumeSoundMem(100, button_SE[2]);
+	PlaySoundMem(title_BGM, DX_PLAYTYPE_LOOP, TRUE);
 }
 
 //更新処理
@@ -80,15 +82,20 @@ eSceneType TitleScene::Update()
 		{
 		case 0:
 			PlaySoundMem(button_SE[2], TRUE);
+			StopSoundMem(title_BGM);
 			return eSceneType::E_MAIN;
 		case 1:
 			PlaySoundMem(button_SE[2], TRUE);
+			StopSoundMem(title_BGM);
 			return eSceneType::E_RANKING_DISP;
 		case 2:
 			PlaySoundMem(button_SE[2], TRUE);
+			StopSoundMem(title_BGM);
 			return eSceneType::E_HELP;
 		default:
 			PlaySoundMem(button_SE[2], TRUE);
+			StopSoundMem(title_BGM);
+
 			return eSceneType::E_END;
 
 		}

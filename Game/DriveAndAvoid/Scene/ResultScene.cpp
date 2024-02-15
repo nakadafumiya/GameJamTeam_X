@@ -4,7 +4,7 @@
 #include "DxLib.h"
 
 
-ResultScene::ResultScene() : back_ground(NULL), score(0)
+ResultScene::ResultScene() : back_ground(NULL), score(0), itemcount_result(0), mosecount_result(0)
 {
 	for (int i = 0; i < 3; i++)
 	{
@@ -12,7 +12,7 @@ ResultScene::ResultScene() : back_ground(NULL), score(0)
 		enemy_count[i] = NULL;
 	}
 
-	for (int i = 0; i <3; i++)
+	for (int i = 0; i <4; i++)
 	{
 		ResultFont[i] = NULL;
 	}
@@ -33,8 +33,12 @@ void ResultScene::Initialize()
 	ResultFont[0] = LoadGraph("Resource/images/Font_gameover.png");
 	ResultFont[1] = LoadGraph("Resource/images/Font_gamescore.png");
 	ResultFont[2] = LoadGraph("Resource/images/Font_rundistance.png");
-		
-
+	ResultFont[3] = LoadGraph("Resource/images/Font_Item.png");
+	ResultFont[4] = LoadGraph("Resource/images/Font_teki.png");
+	back_image = LoadGraph("Resource/images/BackImage.png");
+	
+	itemcount_result = 0;
+	mosecount_result = 0;
 
 	//ÉGÉâÅ[É`ÉFÉbÉN
 	if (back_ground == -1)
@@ -52,6 +56,14 @@ void ResultScene::Initialize()
 	if (ResultFont[1] == -1)
 	{
 		throw ("Resource/images/Font_gamescore.pngÇ™Ç†ÇËÇ‹ÇπÇÒ\n");
+	}
+	if (ResultFont[2] == -1)
+	{
+		throw ("Resource/images/Font_rundistance.pngÇ™Ç†ÇËÇ‹ÇπÇÒ\n");
+	}
+	if (ResultFont[3] == -1)
+	{
+		throw ("Resource/images/Font_Item.pngÇ™Ç†ÇËÇ‹ÇπÇÒ\n");
 	}
 
 	//ÉQÅ[ÉÄåãâ ÇÃì«Ç›çûÇ›
@@ -75,22 +87,24 @@ eSceneType ResultScene::Update()
 void ResultScene::Draw() const
 {
 	//îwåiâÊëúÇï`âÊ
-	DrawGraph(0, 0, back_ground, TRUE);
+	/*DrawGraph(0, 0, back_ground, TRUE);*/
+	DrawGraph(0, 0, back_image, FALSE);
 
 	//ÉXÉRÉAìôï\é¶óÃàÊ
 
-	DrawBox(500, 0, 640, 480, GetColor(0, 153, 0), TRUE);
-
-	DrawBox(100, 100, 540, 380, GetColor(0, 153, 0), TRUE);
-	DrawBox(100, 100, 540, 380, GetColor(0, 0, 0), FALSE);//<-
+	/*DrawBox(0, 0, 640, 480, GetColor(0, 153, 0), TRUE);*/
+	
+	/*DrawBox(100, 100, 540, 380, GetColor(0, 153, 0), TRUE);*/
+	/*DrawBox(100, 100, 540, 380, GetColor(0, 0, 0), FALSE);*/
 
 	
 	
-	DrawRotaGraph(220, 170, 0.2f, 0, ResultFont[0], TRUE);
-	SetFontSize(16);
+	DrawRotaGraph(320, 50, 0.5f, 0, ResultFont[0], TRUE);
+	SetFontSize(25);
 	//DrawString(180, 200, "ëñçsãóó£Å@Å@Å@", GetColor(0, 0, 0));//<-
-	DrawRotaGraph(200, 200, 0.2f, 0, ResultFont[2], TRUE);
-	for (int i = 0; i < 3; i++)
+	DrawRotaGraph(180, 150, 0.29f, 0, ResultFont[2], TRUE);
+	DrawFormatString(300, 140, GetColor(255, 255, 255), "%05d Å~ ÇPÇO", score / 10 - itemcount_result * 150 - mosecount_result * 250);
+	/*for (int i = 0; i < 3; i++)*/
 	/*{
 		DrawRotaGraph(230, 230 + (i * 20), 0.5f, 0, enemy_image[i],
 TRUE);		
@@ -98,12 +112,21 @@ TRUE);
 			enemy_count[i], (i + 1) * 50, (i + 1) * 50 * enemy_count[i]);
 	}*/
 
-		DrawRotaGraph(230, 260, 1.0f, 0, enemy_image[0],
-			TRUE);
-	/*DrawFormatString(230, 255, GetColor(0, 0, 0), "    =%d",item->GetItemCount());*/
-	DrawRotaGraph(180, 340, 0.2f, 0, ResultFont[1], TRUE);
+	DrawRotaGraph(160, 218, 0.17f, 0, ResultFont[3], TRUE);
+	DrawRotaGraph(280, 220, 1.0f, 0, enemy_image[0],TRUE);
+	DrawRotaGraph(280, 280, 1.0f, 0, enemy_image[2], TRUE);
+	/*SetFontSize(25);*/
+	DrawFormatString(270, 205, GetColor(255, 255, 255), "    = %d Å~ ÇPÇTÇO", itemcount_result);
+	DrawFormatString(270, 265, GetColor(255, 255, 255), "    = %d Å~ ÇQÇTÇO", mosecount_result);
+	DrawRotaGraph(180, 280, 0.12f, 0, ResultFont[4], TRUE);
+	DrawRotaGraph(180, 360, 0.4f, 0, ResultFont[1], TRUE);
+
+	SetFontSize(30);
+	DrawFormatString(250, 350, 0xFFFFFF, "  = %06d", score);
+
+	
 	/*DrawString(180, 290, "ÉXÉRÉA", GetColor(0, 0, 0));*/
-	DrawFormatString(180, 333, 0xFFFFFF, "     =%6d", score);
+	/*DrawFormatString(250, 333, 0xFFFFFF, "     =%6d", score);*/
 }
 
 //èIóπéûèàóù
@@ -138,6 +161,8 @@ void ResultScene::ReadResultData()
 
 	//åãâ Çì«Ç›çûÇﬁ
 	fscanf_s(fp, "%6d,\n", &score);
+	fscanf_s(fp, "%6d,\n", &itemcount_result);
+	fscanf_s(fp, "%d,\n", &mosecount_result);
 	
 	//îÇØÇΩêîÇ∆ìæì_ÇéÊìæ
 	for (int i = 0; i < 3; i++)

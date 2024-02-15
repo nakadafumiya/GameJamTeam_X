@@ -12,9 +12,10 @@ barrier(nullptr)
 	image_right1 = LoadGraph("Resource/images/catrun_right_1.png");
 	image_right2 = LoadGraph("Resource/images/catrun_right_2.png");
 	image_stun = LoadGraph("Resource/images/catstun.png");
+	//image_cat_hand = LoadGraph("Resource/images/cat_hand.png");
+	barrier_SE = LoadSoundMem("Resource/music/catbarrier.mp3");
 	image_bakuhatsu = LoadGraph("Resource/images/bakuhatsu.png");
 	image_cathand = LoadGraph("Resource/images/cathand2.png");
-
 }
 
 Player::~Player()
@@ -43,6 +44,8 @@ void Player::Initialize()
 	{
 		throw("Resource/images/catleft_1.png������܂���\n");
 	}
+
+	ChangeVolumeSoundMem(200, barrier_SE);
 }
 
 //�X�V����
@@ -77,16 +80,17 @@ void Player::Update()
 	////����������
 	//Acceleration();
 	
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_START))
-	{
-		is_active = false;
-	}
+	//if (InputControl::GetButtonDown(XINPUT_BUTTON_START))
+	//{
+	//	is_active = false;
+	//}
 
 	//�o���A����
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER) && barrier_count > 0)
 	{
 		if(barrier == nullptr)
 		{
+			PlaySoundMem(barrier_SE, DX_PLAYTYPE_BACK, TRUE);
 			barrier_count--;
 			barrier = new Barrier;
 		}
@@ -260,13 +264,13 @@ void Player::Movement()
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_LEFT))
 	{
 		player_direction = 0;
-		move += Vector2D(-2.0f, 0.0f);
+		move += Vector2D(-3.0f, 0.0f);
 		angle = -DX_PI_F / 18;
 	}
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_RIGHT))
 	{
 		player_direction = 1;
-		move += Vector2D(2.0f, 0.0f);
+		move += Vector2D(3.0f, 0.0f);
 		angle = DX_PI_F / 18;
 	}
 	if (InputControl::GetButton(XINPUT_BUTTON_DPAD_UP))
@@ -281,8 +285,8 @@ void Player::Movement()
 	location += move;
 
 	//��ʊO�ɍs���Ȃ��悤�ɐ�������
-	if ((location.x < box_size.x) || (location.x >= 640.0f - 180.0f) ||
-		(location.y < box_size.y) || (location.y >= 480.0f - box_size.y))
+	if ((location.x -3.0f < box_size.x) || (location.x >= 640.0f - 172.0f) ||
+		(location.y - 35.0f < box_size.y) || (location.y >= 435.0f - box_size.y))
 	{
 		location -= move;
 	}
