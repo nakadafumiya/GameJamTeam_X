@@ -12,7 +12,7 @@ barrier(nullptr)
 	image_right1 = LoadGraph("Resource/images/catrun_right_1.png");
 	image_right2 = LoadGraph("Resource/images/catrun_right_2.png");
 	image_stun = LoadGraph("Resource/images/catstun.png");
-	image_cat_hand = LoadGraph("Resource/images/cat_hand.png");
+	//image_cat_hand = LoadGraph("Resource/images/cat_hand.png");
 	barrier_SE = LoadSoundMem("Resource/music/catbarrier.mp3");
 	image_bakuhatsu = LoadGraph("Resource/images/bakuhatsu.png");
 	image_cathand = LoadGraph("Resource/images/cathand2.png");

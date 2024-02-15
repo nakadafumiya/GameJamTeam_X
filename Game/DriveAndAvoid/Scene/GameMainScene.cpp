@@ -202,6 +202,7 @@ eSceneType GameMainScene::Update()
 	if (player->GetHp() < 0.0f)
 	{
 		DeleteSoundMem(MainBGM);
+
 		return eSceneType::E_RESULT;
 	}
 
