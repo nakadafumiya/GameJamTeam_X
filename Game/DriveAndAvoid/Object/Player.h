@@ -38,7 +38,8 @@ private:
 	int barrier_count;		//バリアの枚数
 	Barrier* barrier;		//バリア
 
-
+	int barrier_SE;         //バリアのSE
+	
 public:
 	Player();
 	~Player();

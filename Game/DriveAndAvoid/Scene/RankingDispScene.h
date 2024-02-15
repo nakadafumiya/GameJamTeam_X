@@ -9,7 +9,11 @@ private:
 
 private:
 	int background_image;	//”wŒi‰æ‘œ
+	int chipichipi[8];
 	RankingData* ranking;	//ƒ‰ƒ“ƒLƒ“ƒOî•ñ
+	int cnt;
+	int WaitTime;
+	int MovieGraphHandle;
 
 public:
 	RankingDispScene();
