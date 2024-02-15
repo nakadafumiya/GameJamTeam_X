@@ -5,14 +5,13 @@ Barrier::Barrier() : image(NULL), life_span(1000)
 {
 
 	//画像の読み込み
-	image = LoadGraph("Resource/images/cat_nikukyu.png");
+	image = LoadGraph("Resource/images/catbarrier2.png");
 
 	//エラーチェック
 	if (image == -1)
 	{
-		throw("Resource/images/cat_nikukyu.pngがありません\n");
+		throw("Resource/images/catbarrier_2.pngがありません\n");
 	}
-
 }
 
 Barrier::~Barrier()

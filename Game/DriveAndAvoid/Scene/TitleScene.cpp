@@ -20,6 +20,7 @@ void TitleScene::Initialize()
 	background_image = LoadGraph("Resource/images/Title.png");
 	menu_image = LoadGraph("Resource/images/TitleFont.png");
 	cursor_image = LoadGraph("Resource/images/nikukyuu.png");
+	title_BGM = LoadSoundMem("Resource/music/Blue_Drops.mp3");
 
 	//エラーチェック
 	if (background_image == -1)
@@ -34,6 +35,7 @@ void TitleScene::Initialize()
 	{
 		throw ("Resource/images/nikukyuu.pngがありません\n");
 	}
+	PlaySoundMem(title_BGM, DX_PLAYTYPE_LOOP, TRUE);
 }
 
 //更新処理
@@ -67,12 +69,16 @@ eSceneType TitleScene::Update()
 		switch (menu_cursor)
 		{
 		case 0:
+			StopSoundMem(title_BGM);
 			return eSceneType::E_MAIN;
 		case 1:
+			StopSoundMem(title_BGM);
 			return eSceneType::E_RANKING_DISP;
 		case 2:
+			StopSoundMem(title_BGM);
 			return eSceneType::E_HELP;
 		default:
+			StopSoundMem(title_BGM);
 			return eSceneType::E_END;
 
 		}

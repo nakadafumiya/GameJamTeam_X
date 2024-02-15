@@ -28,6 +28,7 @@ enemy(nullptr), Itemcount(0)
 	MainBGM = LoadSoundMem("Resource/music/CatRun.mp3");
 	SE[0] = LoadSoundMem("Resource/music/catSE1.mp3");
 	SE[1] = LoadSoundMem("Resource/music/catSE3_2.mp3");
+	SE[2] = LoadSoundMem("Resource/music/catSE2.mp3");
 }
 
 GameMainScene::~GameMainScene()
@@ -42,8 +43,8 @@ void GameMainScene::Initialize()
 	ReadHighScore();
 
 	//�摜�̓ǂݍ���
+	barrier_image = LoadGraph("Resource/images/catbarrier.png");
 	back_ground = LoadGraph("Resource/images/back.bmp");
-	barrier_image = LoadGraph("Resource/images/cat_nikukyu.png");
 	int result = LoadDivGraph("Resource/images/items2.png", 3, 3, 1, 64, 64,
 		enemy_image);
 	Font[0] = LoadGraph("Resource/images/Font_rundistance.png");
@@ -82,9 +83,9 @@ void GameMainScene::Initialize()
 	}
 
 	// BGMの再生
-	ChangeVolumeSoundMem(80,MainBGM);
-	ChangeVolumeSoundMem(100, SE[0]);
-	ChangeVolumeSoundMem(100, SE[1]);
+	ChangeVolumeSoundMem(200,MainBGM);
+	ChangeVolumeSoundMem(200, SE[0]);
+	ChangeVolumeSoundMem(200, SE[1]);
 	PlaySoundMem(MainBGM, DX_PLAYTYPE_LOOP, TRUE);
 				
 }
@@ -163,6 +164,10 @@ eSceneType GameMainScene::Update()
 			{
 				player->SetActive(false);
 				player->DecreaseHp(-334.0f);
+				if (player->GetHp() > 0.0f)
+				{
+					PlaySoundMem(SE[1], DX_PLAYTYPE_BACK, TRUE);
+				}
 				enemy[i]->Finalize();
 				delete enemy[i];
 				enemy[i] = nullptr;
@@ -188,6 +193,10 @@ eSceneType GameMainScene::Update()
 			{
 				player->SetActive(false);
 				player->DecreaseHp(-334.0f);
+				if (player->GetHp() > 0.0f)
+				{
+					PlaySoundMem(SE[1], DX_PLAYTYPE_BACK, TRUE);
+				}
 				enemy[i]->Finalize();
 				delete enemy[i];
 				enemy[i] = nullptr;
@@ -200,6 +209,7 @@ eSceneType GameMainScene::Update()
 	if (player->GetHp() < 0.0f)
 	{
 		DeleteSoundMem(MainBGM);
+
 		return eSceneType::E_RESULT;
 	}
 
