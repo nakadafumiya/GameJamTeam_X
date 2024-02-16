@@ -121,7 +121,7 @@ TRUE);
 	DrawRotaGraph(180, 280, 0.12f, 0, ResultFont[4], TRUE);
 	DrawRotaGraph(180, 360, 0.4f, 0, ResultFont[1], TRUE);
 
-	SetFontSize(30);
+	SetFontSize(25);
 	DrawFormatString(250, 350, 0xFFFFFF, "  = %06d", score);
 
 	
